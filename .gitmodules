@@ -1,3 +1,3 @@
-[submodule "WD_PS2-Javascript-RegExp"]
-	path = SHPP_IntroFullStack/WD_PS2-Javascript-RegExp
-	url = git://github.com/TimKorAnd/WD_PS2-Javascript-RegExp.git
+[submodule "WD_PS2_Javascript-RegExp"]
+	path = WD_PS2_Javascript-RegExp
+	url = https://github.com/TimKorAnd/WD_PS2-Javascript-RegExp.git
