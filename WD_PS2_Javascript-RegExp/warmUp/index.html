@@ -1,24 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <link rel="stylesheet" href="style.css">
+  <title>Warmup</title>
 </head>
 <body>
 <h1 >WD_PS2 Javascript + RegExp</h1>
-<!--////////////////////TASK_1_Sum numbers ends 2,3,7 //////////////////-->
+<!--TASK_1_Sum numbers ends 2,3,7 -->
 <h2 >Task 1. Sum numbers ends 2,3,7 </h2>
 <form class="sum-form" id="sum-form">
   <fieldset>
     <legend >Calc sum integer nums in range, that ends 2,3,7</legend>
     <div>
       <label for="sum-form__input-1" title="please enter only integer number">Enter first addend:</label>
-      <input type="text" class="sum-form__input" id="sum-form__input-1" placeholder="enter first addend"
+      <input type="number"
+             class="sum-form__input"
+             id="sum-form__input-1"
+             placeholder="enter first addend"
              title="please enter only integer number">
     </div>
     <div>
       <label for="sum-form__input-2" title="please enter only integer number">Enter second addend:</label>
-      <input type="text" class="sum-form__input" id="sum-form__input-2" placeholder="enter second addend"
+      <input type="number"
+             class="sum-form__input"
+             id="sum-form__input-2"
+             placeholder="enter second addend"
              title="please enter only integer number">
     </div>
     <button id="sum-form__btn" type="button" class="form__btn btn--unvisible" disabled> Sum ..2..3..7
@@ -28,19 +35,25 @@
     </div>
   </fieldset>
 </form>
-<!--////////////////////TASK_2_Time transformation sec <> HMS //////////////////-->
+<!--TASK_2_Time transformation sec <> HMS -->
 <h2 >Task 2. Time transformation seconds </h2>
 <form class="time-trans-form" id="time-form">
   <fieldset>
     <legend >Transform time from seconds to hh:mm:ss & vice-versa </legend>
     <div>
       <label for="time-form__seconds-input" title="please enter time in second">Time in second:</label>
-      <input type="text" class="time-form__seconds-input" id="time-form__seconds-input" placeholder="enter time in second"
+      <input type="text"
+             class="time-form__seconds-input"
+             id="time-form__seconds-input"
+             placeholder="enter time in second"
              title="enter time in second">
     </div>
     <div>
       <label for="time-form__hms-input" title="please enter time in hh:mm:ss">Time in hh:mm:ss:</label>
-      <input type="text" class="time-form__hms-input" id="time-form__hms-input" placeholder="enter time in hh:mm:ss"
+      <input type="text"
+             class="time-form__hms-input"
+             id="time-form__hms-input"
+             placeholder="enter time in hh:mm:ss"
              title="please enter correct hh:mm:ss">
     </div>
     <button id="time-form__btn" type="button" class="btn--unvisible time-form__btn"
@@ -50,60 +63,77 @@
     </div>
   </fieldset>
 </form>
-<!--////////////////////_3_DATETIME-LOCALE//////////////////-->
+<!--_3_DATETIME-LOCALE-->
 <h2 >Task 3. Calculate the time span between two date </h2>
 <form class="time-span-form" id="time-span" >
   <fieldset>
     <legend > </legend>
     <div>
       <label for="datetime-span-form__input-1" title="please enter date & time">Date & time 1:</label>
-      <input type="datetime-local" class=date"time-span-form__input" id="datetime-span-form__input-1" placeholder="enter first date & time"
-             title="date & time in YY:MM:DD:HH:MM:SS" value="2019-01-01T00:01">
+      <input type="datetime-local"
+             class=date"time-span-form__input"
+             id="datetime-span-form__input-1"
+             placeholder="enter first date & time"
+             title="date & time in YY:MM:DD:HH:MM:SS"
+             value="2019-01-01T00:01">
     </div>
     <div>
       <label for="datetime-span-form__input-2" title="please enter date & time">Date & time 2:</label>
-      <input type="datetime-local" class="datetime-form__hms-input" id="datetime-span-form__input-2" placeholder="enter second date & time"
-             title="date & time in YY:MM:DD:HH:MM:SS" value="2019-01-01T00:01">
+      <input type="datetime-local"
+             class="datetime-form__hms-input"
+             id="datetime-span-form__input-2"
+             placeholder="enter second date & time"
+             title="date & time in YY:MM:DD:HH:MM:SS"
+             value="2019-01-01T00:01">
     </div>
     <button id="datetime-span-form__btn" type="button" class='btn--unvisible datetime-span-form__btn'
             disabled>time</button>
     <div>
-      <p id="datetime-span-result"> Data interchange between two input field only. </p>
+      <p id="datetime-span-result" lang="ru"> здесь будет разница между введенными датами </p>
     </div>
   </fieldset>
 </form>
-<!--///////////////////TASK_4_CHESSBOARD/////////////////////////-->
+<!--TASK_4_CHESSBOARD-->
 <h2 >Task 4. Chess board </h2>
 <form class="chess-board-form" id="chess-board-form">
   <fieldset>
     <legend >Draw a chess board specified dimension (max = 199 x 199)</legend>
     <div>
       <label for="chess-board-form__input-col" title="please enter num of column">Enter column num (max 199):</label>
-      <input type="text" class="chess-board-form__input" id="chess-board-form__input-col" placeholder="enter col num"
+      <input type="text"
+             class="chess-board-form__input"
+             id="chess-board-form__input-col"
+             placeholder="enter col num"
              title="please enter only positive integer number">
     </div>
     <div>
       <label for="chess-board-form__input-row" title="please enter only integer number">Enter row num (max 199):</label>
-      <input type="text" class="chess-board-form__input" id="chess-board-form__input-row" placeholder="enter row num"
+      <input type="text"
+             class="chess-board-form__input"
+             id="chess-board-form__input-row"
+             placeholder="enter row num"
              title="please enter only positive integer number">
     </div>
     <button id="chess-board-form__btn" type="button" class="form__btn btn--unvisible"
             onclick="outputSpecifiedNumbersSum('sum-form__btn', 'sum-form__input-1', 'sum-form__input-2')"
-            disabled> Sum ..2..3..7
-    </button>
+            disabled>chessButton</button>
     <div id="chess-board-form__result-output">
       <p id="chess-board-form__result-title">there will be a chessboard specified size</p>
     </div>
   </fieldset>
 </form>
 
-<!--///////////////////TASK_5_LINKS_CHECK/////////////////////////-->
+<!--TASK_5_LINKS_CHECK-->
 <h2 >Task_5 links & IPv4 check & sort </h2>
 <form class="links-form" id="links-form">
   <fieldset>
     <legend >Task_5 links</legend>
     <div>
-      <textarea class="links-form__text" id="links-form__text" placeholder="enter links here" cols="64" rows="8"></textarea>
+      <textarea class="links-form__text"
+                id="links-form__text"
+                placeholder="enter links here"
+                cols="64"
+                rows="8"></textarea>
     </div>
     <div id="links-form__result-output">
       <p id="links-form__result-output-title">there will be a links w/o protocol</p>
@@ -111,17 +141,24 @@
   </fieldset>
 </form>
 
-<!--///////////////////TASK_6_MARK_MATCHING/////////////////////////-->
+<!--TASK_6_MARK_MATCHING-->
 <h2 >Task_6 mark matching text </h2>
 <form class="mark-text-form" id="mark-text-form">
   <fieldset>
     <legend >Task_6 highlight matching text</legend>
     <div>
-      <textarea class="mark-text-form__text" id="mark-text-form__text" placeholder="enter text here" cols="64" rows="8"></textarea>
+      <textarea class="mark-text-form__text"
+                id="mark-text-form__text"
+                placeholder="enter text here"
+                cols="64"
+                rows="8"></textarea>
     </div>
     <div>
       <label for="mark-text-form__input-regexp" id="mark-text-form__input-regexp-label" title="please enter only integer number">Enter regexp or string for search:</label>
-      <input type="text" class="mark-text-form__input-regexp" id="mark-text-form__input-regexp" placeholder="enter regexp"
+      <input type="text"
+             class="mark-text-form__input-regexp"
+             id="mark-text-form__input-regexp"
+             placeholder="enter regexp"
              title="please enter regexp">
     </div>
     <button id="mark-text-form__btn" type="button" class="form__btn btn--visible">Mark it</button>

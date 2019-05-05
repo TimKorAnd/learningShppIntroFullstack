@@ -57,22 +57,17 @@ function start(){
         ['mark-text-form__text','mark-text-form__input-regexp']);
 }
 
-////////////////////TASK_1_Sum numbers ends 2,3,7 //////////////////
+//TASK_1_Sum numbers ends 2,3,7 //
 /* Task_1: between two specified numbers, sum numbers only if they are ending for 2, 3, 7*/
 function outputSpecifiedNumbersSum(btnId, ...inputsId) {
     const NUMBER_VALID_REGEX = /^-?\d+$/;
     /*sum specified numbers in range*/
-    let sumSpecNum = (a , b ) => {
-        if (a === '' || b === '') {
-            return "please, enter data in empty field"
+    const sumSpecNum = (a , b ) => {
+        if (!a || !b ) {
+            return 'please, enter data in empty field'
         }
-        if (isNaN(a) || isNaN(b)) {
-            return "please, enter correct data for sum calculate"
-        }
-        a = parseInt(a);
-        b = parseInt(b);
-        let minNum = a < b ? a : b;
-        let maxNum = a + b - minNum;
+        const minNum = Math.min(a, b);
+        const maxNum = Math.max(a, b);
         let sum = 0;
         for (let i = minNum; i <= maxNum; i++){
             if (isSpecNum(i)){
@@ -83,13 +78,11 @@ function outputSpecifiedNumbersSum(btnId, ...inputsId) {
     };
 
     /*is number end with 2 or 3 or 7*/
-    let isSpecNum = (num) => {
+    const isSpecNum = (num) => {
         num = (Math.abs(num)) % 10;
         return (num === 2) || (num === 3) || (num === 7);
 
     };
-
-    validation(btnId, NUMBER_VALID_REGEX, inputsId);
 
     const numberFirst = document.getElementById(inputsId[0]).value;
     const numberSecond = document.getElementById(inputsId[1]).value;
@@ -105,7 +98,7 @@ function outputSpecifiedNumbersSum(btnId, ...inputsId) {
 function validation(btnId, regTemplate, inputsId){
 
     let isAllInputsValid = true;
-    if ((typeof  inputsId === "object") && (inputsId.length > 1)) {
+    if ((typeof  inputsId === 'object') && (inputsId.length > 1)) {
         inputsId.forEach((currentId) => {
             const currentInput = document.getElementById(currentId);
             if (!regTemplate.test(document.getElementById(currentId).value)) {
@@ -129,7 +122,7 @@ function validation(btnId, regTemplate, inputsId){
     return isAllInputsValid;
 }
 
-////////////////////TASK_2_Time transformation sec > HMS //////////////////
+//TASK_2_Time transformation sec > HMS //
 /*output in hms*/
 function outputInHMS(outputId, inputId){
     let timeInSecond = document.getElementById(inputId).value;
@@ -159,7 +152,7 @@ function outputInHMS(outputId, inputId){
 
 }
 
-////////////////////TASK_2_Time transformation HMS > sec //////////////////
+//TASK_2_Time transformation HMS > sec //
 /*output seconds*/
 function outputInSeconds(outputId, inputId){
 
@@ -172,13 +165,13 @@ function outputInSeconds(outputId, inputId){
     };
     /*transfer time from HMS to seconds*/
     function transferFromHMS() {
-        let seconds = timeInSecond.split(':').reduce((prevVal, currVal, currIndex) => {
+        const seconds = timeInSecond.split(':').reduce((prevVal, currVal, currIndex) => {
             return prevVal + currVal * SECONDS_IN_HMS[currIndex];
         }, 0);
         return seconds;
     }
 
-    let seconds = transferFromHMS();
+    const seconds = transferFromHMS();
 
     resultTimeTransform.value =  seconds.toString();
     resultTimeTransform.className = 'form__input--valid';
@@ -189,7 +182,7 @@ function enterPressed(event) {
     return (event.which == 13 || event.keyCode == 13);
 }
 
-////////////////////_3_DATETIME-LOCALE//////////////////
+//_3_DATETIME-LOCALE//
 /*output a span between two date*/
 function outputSpan (inputFirstId, inputSecondId, resultOutputId){
     const DATETIME_VALID_REGEX = /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})$/;   //for task_3 locale datetime regexp
@@ -206,7 +199,7 @@ function outputSpan (inputFirstId, inputSecondId, resultOutputId){
                             ['часов','час','часа','часа','часа'],
                             ['минут','минута','минуты','минуты','минуты'],
                             ['секунд','секунда','секунды','секунды','секунды']];
-    let resultOutput = document.getElementById(resultOutputId);
+    const resultOutput = document.getElementById(resultOutputId);
 
     if (!validation('datetime-span-form__btn', DATETIME_VALID_REGEX, [inputFirstId, inputSecondId])){
         resultOutput.innerText = 'введите корректную дату';
@@ -225,7 +218,7 @@ function outputSpan (inputFirstId, inputSecondId, resultOutputId){
     let dif = date2 - date1;
 
     /*calculate days ... ms*/
-    let resultSpan = TIME_UNITS_IN_MS_ARRAY.map((unit)=>{
+    const resultSpan = TIME_UNITS_IN_MS_ARRAY.map((unit)=>{
         let tempDif = dif;
         dif -= (Math.trunc(tempDif / unit) * unit);
         return(Math.trunc(tempDif / unit));
@@ -233,7 +226,7 @@ function outputSpan (inputFirstId, inputSecondId, resultOutputId){
 
     /*calculate years, months & days from days*/
     let currentMonth = date1.getMonth();
-    let currentYear = date1.getFullYear();
+    const currentYear = date1.getFullYear();
     let resultMonth = 0, resultYears = 0, dayInCurrentMonth ;
         /*calc month, days in remain*/
     while (resultSpan[0] >= (dayInCurrentMonth = (new Date(currentYear + resultYears,currentMonth + 1 ,0)).getDate())){
@@ -266,10 +259,10 @@ function outputSpan (inputFirstId, inputSecondId, resultOutputId){
     resultOutput.innerText = answerStr;
 }
 
-///////////////////TASK_4_CHESSBOARD/////////////////////////
+//TASK_4_CHESSBOARD//
 function drawChessboard(inputFirstId, inputSecondId, resultOutputId) {
     const CHESSBOARD_SIZE_VALID = /^(?:0*(?:0|1)?\d?\d)$/;
-    let resultOutput = document.getElementById(resultOutputId);
+    const resultOutput = document.getElementById(resultOutputId);
     if (!validation('chess-board-form__btn', CHESSBOARD_SIZE_VALID, [inputFirstId, inputSecondId])){
         resultOutput.innerText = 'enter correct chessboard size';
         resultOutput.className = 'form__input--invalid';
@@ -278,8 +271,8 @@ function drawChessboard(inputFirstId, inputSecondId, resultOutputId) {
     resultOutput.className = 'form__input--valid';
     resultOutput.innerText = '';
 
-    let colNum = document.getElementById(inputFirstId).value ;
-    let rowNum = document.getElementById(inputSecondId).value;
+    const colNum = document.getElementById(inputFirstId).value ;
+    const rowNum = document.getElementById(inputSecondId).value;
     const res = document.getElementById(resultOutputId);
     for (let row = 0; row < rowNum; row ++) {
         for (let col = 0; col < colNum; col++) {
@@ -293,17 +286,19 @@ function drawChessboard(inputFirstId, inputSecondId, resultOutputId) {
             cell.append('__');
             res.append(cell);
         }
-        cell = document.createElement('div');
+        const cell = document.createElement('div');
         cell.className = 'col';
         res.append(cell);
     }
 }
-///////////////////TASK_5_LINKS_CHECK/////////////////////////
+//TASK_5_LINKS_CHECK//
 function outputCheckedLinksWithoutHTTPs(inputTextId, resultOutputId){
     const IPv4_VALID = /^(?:(?:(?:\d{1,3})\.){3})(?:\d{1,3})$/;
     //const LINK_VALID = /^(http(s?):\/\/)(www\.)?(((\w{2,63})\.)+((\w{2,63})\.?))$/i;
-    const LINK_VALID = /^(?:http(s?):\/\/)(?:www\.)?(?:(?:(?:[a-z0-9-._~:/?#[\]@!$&'()*+,;=]{2,63})\.)+(?:(?:[a-z0-9-._~:/?#[\]@!$&'()*+,;=]{2,63})(\.?|\/?)))$/i;
+    const LINK_VALID = /^(?:http(s?):\/\/)?(?:www\.)?(?:(?:(?:[a-z0-9-._~:/?#[\]@!$&'()*+,;=]{2,63})\.)+(?:(?:[a-z0-9-._~:/?#[\]@!$&'()*+,;=]{2,63})(\.?|\/?)))$/i;
     const LINK_HTTPs = /^(?:http(s?):\/\/)/i;
+    const LINK_WO_PROTOCOL = /^www\./i;
+    const WWW_NOT_LOCALE = '//www.';
     const INVALID_DASH_AND_UNDERSCORE_TEST = /-(?=-)|\.(?=-)|-(?=\.)/;
     const LINK_MAX_LENGTH = 255;
 
@@ -318,13 +313,13 @@ function outputCheckedLinksWithoutHTTPs(inputTextId, resultOutputId){
     }
 
     inputArray.forEach(str => {
-        //console.log(str);
         if (isValidLinkOrIPv4(str)){
-            outputArray.set(str, str.replace(LINK_HTTPs,''));
+            outputArray.set(str.replace(LINK_WO_PROTOCOL, WWW_NOT_LOCALE), str.replace(LINK_HTTPs,''));
         }
     });
 
     const outputDiv = document.getElementById(resultOutputId);
+    outputDiv.innerHTML = '';
 
     outputArray =  new Map([...outputArray.entries()].sort((a, b) => {
         let x = a[1].toLowerCase();
@@ -343,7 +338,7 @@ function outputCheckedLinksWithoutHTTPs(inputTextId, resultOutputId){
         outputDiv.appendChild(link);
     });
 }
-///////////////////TASK_6_MARK_MATCHING/////////////////////////
+//TASK_6_MARK_MATCHING//
 function outputMarkedText(inputTextId, inputRegexpId,resultOutputId) {
     const NOT_EMPTY_VALID = /^.+|\w|\W$/; // for task_6 regexp
     const inputStr = document.getElementById(inputTextId).value;
@@ -366,24 +361,7 @@ function outputMarkedText(inputTextId, inputRegexpId,resultOutputId) {
         return;
     }
 
-    let resultStr = inputStr;
-    /*insert string into target from specified index*/
-    function insert(targetStr, indexForInsertion, insertingStr) {
-        return targetStr.substr(0, indexForInsertion) + insertingStr + targetStr.substr(indexForInsertion);
-    }
-    /*array for matched by regexpr result*/
-    let marked;
-    /*correction for <mark>.length=6 </mark>.length=7 tegs length*/
-    let totalLengthMarkTegCorrection = 0;
-
-    while ((marked = inputRegExp.exec(inputStr)) !== null && marked[0] !==''){
-        resultStr = insert(resultStr, inputRegExp.lastIndex - marked[0].length + totalLengthMarkTegCorrection, '<mark>');
-        totalLengthMarkTegCorrection += '<mark>'.length;
-        resultStr = insert(resultStr, inputRegExp.lastIndex + totalLengthMarkTegCorrection, '</mark>');
-        totalLengthMarkTegCorrection += '</mark>'.length;
-    }
-
-    resultOutputEl.innerHTML = '<p>'+resultStr+'</p>';
+    resultOutputEl.innerHTML = '<p>'+inputStr.replace(inputRegExp, '<mark>$&</mark>')+'</p>';
 
 }
 

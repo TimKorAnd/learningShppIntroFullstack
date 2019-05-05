@@ -41,7 +41,15 @@ const SORT_ARROW_DOWN = '▼';
 let tableBody = document.getElementById('tbody');
 let total = document.getElementById('total');
 
-window.onload = () => {eventsLoader()};
+function setCursors() {
+    document.getElementById('category-arrow-sort').style.cursor = 'pointer';
+    document.getElementById('name-arrow-sort').style.cursor = 'pointer';
+}
+
+window.onload = () => {
+    setCursors();
+    eventsLoader()
+};
 
 function searchByName(event) {
     let searchRegExp;
@@ -81,15 +89,8 @@ function drawTR(currGood) {
 /*show the table*/
 function viewTable(){
     let sum = 0;
-    let clearTableBody = () => {
-        while(tableBody.hasChildNodes())
-        {
-            tableBody.removeChild(tableBody.firstChild);
-        }
-        total.innerText = '$';
-    };
-    //console.log(GOODS);
-    clearTableBody();
+    tableBody.innerHTML = '';
+    total.innerText = '$';
     GOODS.forEach((currGood) =>{
         if ((currGood.searched === undefined || currGood.searched) && (currGood.filteredByCategory === undefined || currGood.filteredByCategory)) {
             drawTR(currGood);
