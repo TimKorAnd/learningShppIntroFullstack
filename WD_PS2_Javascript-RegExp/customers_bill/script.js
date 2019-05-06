@@ -38,8 +38,8 @@ const GOODS = [
 ];
 const SORT_ARROW_UP = '▲';
 const SORT_ARROW_DOWN = '▼';
-let tableBody = document.getElementById('tbody');
-let total = document.getElementById('total');
+const tableBody = document.getElementById('tbody');
+const total = document.getElementById('total');
 
 function setCursors() {
     document.getElementById('category-arrow-sort').style.cursor = 'pointer';
@@ -69,7 +69,7 @@ function searchByName(event) {
 }
 
 function filterByCategorySelect(event) {
-    let filter = event.target.value;
+    const filter = event.target.value;
     GOODS.forEach((currGood, i) =>{
         GOODS[i].filteredByCategory = (currGood.category === filter || filter === '')
     });
@@ -78,10 +78,10 @@ function filterByCategorySelect(event) {
 /*draw row with one good*/
 function drawTR(currGood) {
     //console.log(currGood);
-    let tr = document.createElement('tr');
+    const tr = document.createElement('tr');
     for (let currField in currGood) {
         if (currField === 'searched' || currField === 'filteredByCategory') continue;
-        let td = tr.appendChild(document.createElement('td'));
+        const td = tr.appendChild(document.createElement('td'));
         td.innerHTML = currGood[currField];
     }
     tableBody.appendChild(tr);
@@ -101,7 +101,7 @@ function viewTable(){
 }
 
 function sortBy(event) {
-    let field = event.target.innerText.toLowerCase().split(' ');
+    const field = event.target.innerText.toLowerCase().split(' ');
     event.target.innerText = event.target.innerText.replace((field[1] === SORT_ARROW_UP ? SORT_ARROW_UP : SORT_ARROW_DOWN),
             (field[1] !== SORT_ARROW_UP ? SORT_ARROW_UP : SORT_ARROW_DOWN));
 
