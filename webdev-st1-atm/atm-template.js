@@ -66,13 +66,17 @@ const ATM = {
             console.log('no user login ');
             return;
         }
-        if (this.currentUser.debet >= amount){
+        if (this.currentUser.debet >= amount && this.cash >= amount){
             this.currentUser.debet -= amount;
+            this.cash -= amount;
             console.log('take your money');
             return;
         }
+        if (this.cash < amount){
+            console.log('not enough cash in ATM');
+            return;
+        }
         console.log('not enough debet');
-        return;
     },
     // load cash - available for user only
     loadCash(amount) {
@@ -82,6 +86,7 @@ const ATM = {
         }
 
         this.currentUser.debet += amount;
+        this.cash += amount;
         console.log('ok');
         return;
     },
