@@ -105,6 +105,7 @@ const ATM = {
             return;
         }
         this.isAuth = false;
+        this.currentUser = {};
         console.log(`user ${this.currentUser.id} now logOut`);
     }
 };
