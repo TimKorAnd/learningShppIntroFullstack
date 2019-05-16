@@ -32,8 +32,8 @@ const ATM = {
             if (currUser.id === id && currUser.pin === pin) {
                 this.currentUser = currUser;
                 this.isAuth = true;
-                this.logs.push({user : this.currentUser, AtmCash : this.cash, action: 'auth', res: `user ${id} now login`});
-                console.log(`user ${id} now login`);
+                this.logs.push({user : this.currentUser, AtmCash : this.cash, action: 'auth', res: `${this.currentUser.type} ${id} now login`});
+                console.log(`${this.currentUser.type} ${id} now login`);
                 return true;
             }
 
@@ -227,9 +227,9 @@ const ATM = {
             user : tempUser,
             AtmCash : this.cash,
             action: 'logOut',
-            res: `user ${tempUser.id} now logOut`
+            res: `${this.currentUser.type} ${tempUser.id} now logOut`
         });
 
-        console.log(`user ${tempUser.id} now logOut`);
+        console.log(`${this.currentUser.type} ${tempUser.id} now logOut`);
     }
 };
