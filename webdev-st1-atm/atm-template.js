@@ -18,12 +18,22 @@ const ATM = {
         id = id.toString();
         pin = pin.toString();
         if (id.length !== ID_LENGTH || pin.length !== PIN_LENGTH) {
-            this.logs.push({user : {id : id, pin : pin}, AtmCash : this.cash, action: 'auth', res: 'not correct data entered'});
+            this.logs.push({
+                id: this.currentUser.id,
+                AtmCash: this.cash,
+                action: 'auth',
+                res: 'not correct data entered'
+            });
             console.log('not correct data entered');
             return;
         }
         if (this.isAuth) {
-            this.logs.push({user : this.currentUser, AtmCash : this.cash, action: 'auth', res: ` ${this.currentUser.id} is login now, need to logOut at first`});
+            this.logs.push({
+                id: id,
+                AtmCash: this.cash,
+                action: 'auth',
+                res: ` ${this.currentUser.id} is login now, need to logOut at first`
+            });
             console.log('some user is login now, need to logOut at first');
             return;
         }
@@ -32,7 +42,12 @@ const ATM = {
             if (currUser.id === id && currUser.pin === pin) {
                 this.currentUser = currUser;
                 this.isAuth = true;
-                this.logs.push({user : this.currentUser, AtmCash : this.cash, action: 'auth', res: `user ${id} now login`});
+                this.logs.push({
+                    id : id,
+                    AtmCash: this.cash,
+                    action: 'auth',
+                    res: `user ${id} now login`
+                });
                 console.log(`user ${id} now login`);
                 return true;
             }
@@ -45,7 +60,12 @@ const ATM = {
 
         //id exist but pin not equals
         if (!this.isAuth && isWrongPin) {
-            this.logs.push({user : {id : id, pin : pin}, AtmCash : this.cash, action: 'auth', res: 'not correct user data input'});
+            this.logs.push({
+                id : id,
+                AtmCash: this.cash,
+                action: 'auth',
+                res: 'not correct user data input'
+            });
             console.log('not correct user data input');
             return;
         }
@@ -53,8 +73,8 @@ const ATM = {
         if (!this.isAuth && !isWrongPin) {
             this.users.push({id: id, pin: pin, debet: 0, type: "user"});
             this.logs.push({
-                user : {id : id, pin : pin},
-                AtmCash : this.cash,
+                id : id,
+                AtmCash: this.cash,
                 action: 'auth',
                 res: 'new user now is registered & still need authorisation'
             });
@@ -67,9 +87,9 @@ const ATM = {
     check() {
         if (!this.isAuth) {
             this.logs.push({
-                user : this.currentUser,
-                AtmCash : this.cash,
-                action : 'check',
+                id: this.currentUser.id,
+                AtmCash: this.cash,
+                action: 'check',
                 res: 'no user login'
             });
             console.log('no user login ');
@@ -78,9 +98,9 @@ const ATM = {
 
         if (this.currentUser.type === 'admin') {
             this.logs.push({
-                user : this.currentUser,
-                AtmCash : this.cash,
-                action : 'check ATM cash',
+                id: this.currentUser.id,
+                AtmCash: this.cash,
+                action: 'check ATM cash',
                 res: 'check ATM cash'
             });
             console.log(`ATM cash is ${this.cash}`);
@@ -88,8 +108,8 @@ const ATM = {
         }
 
         this.logs.push({
-            user : this.currentUser,
-            AtmCash : this.cash,
+            id: this.currentUser.id,
+            AtmCash: this.cash,
             action: 'check',
             res: `user ${this.currentUser.id} have ${this.currentUser.debet}`
         });
@@ -100,8 +120,8 @@ const ATM = {
     getCash(amount) {
         if (!this.isAuth || this.currentUser.type === 'admin') {
             this.logs.push({
-                user : this.currentUser,
-                AtmCash : this.cash,
+                id: this.currentUser.id,
+                AtmCash: this.cash,
                 action: 'getCash',
                 res: 'no user login'
             });
@@ -112,8 +132,8 @@ const ATM = {
             this.currentUser.debet -= amount;
             this.cash -= amount;
             this.logs.push({
-                user : this.currentUser,
-                AtmCash : this.cash,
+                id: this.currentUser.id,
+                AtmCash: this.cash,
                 action: 'getCash',
                 res: `get ${amount}`
             });
@@ -122,8 +142,8 @@ const ATM = {
         }
         if (this.cash < amount) {
             this.logs.push({
-                user : this.currentUser,
-                AtmCash : this.cash,
+                id: this.currentUser.id,
+                AtmCash: this.cash,
                 action: 'getCash',
                 res: 'not enough cash in ATM'
             });
@@ -131,8 +151,8 @@ const ATM = {
             return;
         }
         this.logs.push({
-            user : this.currentUser,
-            AtmCash : this.cash,
+            id: this.currentUser.id,
+            AtmCash: this.cash,
             action: 'getCash',
             res: 'not enough debet'
         });
@@ -142,8 +162,8 @@ const ATM = {
     loadCash(amount) {
         if (!this.isAuth || this.currentUser.type === 'admin') {
             this.logs.push({
-                user : this.currentUser,
-                AtmCash : this.cash,
+                id: this.currentUser.id,
+                AtmCash: this.cash,
                 action: 'loadCash',
                 res: 'no user login'
             });
@@ -154,8 +174,8 @@ const ATM = {
         this.currentUser.debet += amount;
         this.cash += amount;
         this.logs.push({
-            user : this.currentUser,
-            AtmCash : this.cash,
+            id: this.currentUser.id,
+            AtmCash: this.cash,
             action: 'loadCash',
             res: `load ${amount}`
         });
@@ -167,8 +187,8 @@ const ATM = {
 
         if (this.currentUser.type !== 'admin') {
             this.logs.push({
-                user : this.currentUser,
-                AtmCash : this.cash,
+                id: this.currentUser.id,
+                AtmCash: this.cash,
                 action: 'loadAtmCash',
                 res: 'access denied'
             });
@@ -178,8 +198,8 @@ const ATM = {
 
         this.cash += amount;
         this.logs.push({
-            user : this.currentUser,
-            AtmCash : this.cash,
+            id: this.currentUser.id,
+            AtmCash: this.cash,
             action: 'loadAtmCash',
             res: `load ${amount}`
         });
@@ -191,8 +211,8 @@ const ATM = {
     getLogs() {
         if (this.currentUser.type !== 'admin') {
             this.logs.push({
-                user : this.currentUser,
-                AtmCash : this.cash,
+                id: this.currentUser.id,
+                AtmCash: this.cash,
                 action: 'getLogs',
                 res: 'access denied'
             });
@@ -200,20 +220,24 @@ const ATM = {
             return;
         }
         this.logs.push({
-            user : this.currentUser,
-            AtmCash : this.cash,
+            id: this.currentUser.id,
+            AtmCash: this.cash,
             action: 'getLogs',
             res: `logs length is ${this.logs.length}`
         });
-        console.log(this.logs);
-
+        this.logs.forEach(currLog => {
+            for (let field in currLog){
+                console.log(`${field} is ${currLog[field]}`);
+            }
+            console.log('--------------');
+        })
     },
     // log out
     logout() {
         if (!this.isAuth) {
             this.logs.push({
-                user : this.currentUser,
-                AtmCash : this.cash,
+                id: this.currentUser.id,
+                AtmCash: this.cash,
                 action: 'logOut',
                 res: 'no user login'
             });
@@ -224,8 +248,8 @@ const ATM = {
         const tempUser = this.currentUser;
         this.currentUser = {};
         this.logs.push({
-            user : tempUser,
-            AtmCash : this.cash,
+            id: tempUser.id,
+            AtmCash: this.cash,
             action: 'logOut',
             res: `user ${tempUser.id} now logOut`
         });
