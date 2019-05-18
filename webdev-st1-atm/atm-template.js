@@ -21,6 +21,7 @@ const ATM = {
             this.logs.push({
                 id: this.currentUser.id,
                 AtmCash: this.cash,
+                time: new Date().toLocaleString(),
                 action: 'auth',
                 res: 'not correct data entered'
             });
@@ -31,6 +32,7 @@ const ATM = {
             this.logs.push({
                 id: id,
                 AtmCash: this.cash,
+                time: new Date().toLocaleString(),
                 action: 'auth',
                 res: ` ${this.currentUser.id} is login now, need to logOut at first`
             });
@@ -43,8 +45,9 @@ const ATM = {
                 this.currentUser = currUser;
                 this.isAuth = true;
                 this.logs.push({
-                    id : id,
+                    id: id,
                     AtmCash: this.cash,
+                    time: new Date().toLocaleString(),
                     action: 'auth',
                     res: `user ${id} now login`
                 });
@@ -61,8 +64,9 @@ const ATM = {
         //id exist but pin not equals
         if (!this.isAuth && isWrongPin) {
             this.logs.push({
-                id : id,
+                id: id,
                 AtmCash: this.cash,
+                time: new Date().toLocaleString(),
                 action: 'auth',
                 res: 'not correct user data input'
             });
@@ -73,8 +77,9 @@ const ATM = {
         if (!this.isAuth && !isWrongPin) {
             this.users.push({id: id, pin: pin, debet: 0, type: "user"});
             this.logs.push({
-                id : id,
+                id: id,
                 AtmCash: this.cash,
+                time: new Date().toLocaleString(),
                 action: 'auth',
                 res: 'new user now is registered & still need authorisation'
             });
@@ -89,6 +94,7 @@ const ATM = {
             this.logs.push({
                 id: this.currentUser.id,
                 AtmCash: this.cash,
+                time: new Date().toLocaleString(),
                 action: 'check',
                 res: 'no user login'
             });
@@ -100,6 +106,7 @@ const ATM = {
             this.logs.push({
                 id: this.currentUser.id,
                 AtmCash: this.cash,
+                time: new Date().toLocaleString(),
                 action: 'check ATM cash',
                 res: 'check ATM cash'
             });
@@ -110,6 +117,7 @@ const ATM = {
         this.logs.push({
             id: this.currentUser.id,
             AtmCash: this.cash,
+            time: new Date().toLocaleString(),
             action: 'check',
             res: `user ${this.currentUser.id} have ${this.currentUser.debet}`
         });
@@ -122,6 +130,7 @@ const ATM = {
             this.logs.push({
                 id: this.currentUser.id,
                 AtmCash: this.cash,
+                time: new Date().toLocaleString(),
                 action: 'getCash',
                 res: 'no user login'
             });
@@ -134,6 +143,7 @@ const ATM = {
             this.logs.push({
                 id: this.currentUser.id,
                 AtmCash: this.cash,
+                time: new Date().toLocaleString(),
                 action: 'getCash',
                 res: `get ${amount}`
             });
@@ -144,6 +154,7 @@ const ATM = {
             this.logs.push({
                 id: this.currentUser.id,
                 AtmCash: this.cash,
+                time: new Date().toLocaleString(),
                 action: 'getCash',
                 res: 'not enough cash in ATM'
             });
@@ -153,6 +164,7 @@ const ATM = {
         this.logs.push({
             id: this.currentUser.id,
             AtmCash: this.cash,
+            time: new Date().toLocaleString(),
             action: 'getCash',
             res: 'not enough debet'
         });
@@ -164,6 +176,7 @@ const ATM = {
             this.logs.push({
                 id: this.currentUser.id,
                 AtmCash: this.cash,
+                time: new Date().toLocaleString(),
                 action: 'loadCash',
                 res: 'no user login'
             });
@@ -176,6 +189,7 @@ const ATM = {
         this.logs.push({
             id: this.currentUser.id,
             AtmCash: this.cash,
+            time: new Date().toLocaleString(),
             action: 'loadCash',
             res: `load ${amount}`
         });
@@ -189,6 +203,7 @@ const ATM = {
             this.logs.push({
                 id: this.currentUser.id,
                 AtmCash: this.cash,
+                time: new Date().toLocaleString(),
                 action: 'loadAtmCash',
                 res: 'access denied'
             });
@@ -200,6 +215,7 @@ const ATM = {
         this.logs.push({
             id: this.currentUser.id,
             AtmCash: this.cash,
+            time: new Date().toLocaleString(),
             action: 'loadAtmCash',
             res: `load ${amount}`
         });
@@ -213,6 +229,7 @@ const ATM = {
             this.logs.push({
                 id: this.currentUser.id,
                 AtmCash: this.cash,
+                time: new Date().toLocaleString(),
                 action: 'getLogs',
                 res: 'access denied'
             });
@@ -222,11 +239,12 @@ const ATM = {
         this.logs.push({
             id: this.currentUser.id,
             AtmCash: this.cash,
+            time: new Date().toLocaleString(),
             action: 'getLogs',
             res: `logs length is ${this.logs.length}`
         });
         this.logs.forEach(currLog => {
-            for (let field in currLog){
+            for (let field in currLog) {
                 console.log(`${field} is ${currLog[field]}`);
             }
             console.log('--------------');
@@ -238,6 +256,7 @@ const ATM = {
             this.logs.push({
                 id: this.currentUser.id,
                 AtmCash: this.cash,
+                time: new Date().toLocaleString(),
                 action: 'logOut',
                 res: 'no user login'
             });
@@ -250,6 +269,7 @@ const ATM = {
         this.logs.push({
             id: tempUser.id,
             AtmCash: this.cash,
+            time: new Date().toLocaleString(),
             action: 'logOut',
             res: `user ${tempUser.id} now logOut`
         });
