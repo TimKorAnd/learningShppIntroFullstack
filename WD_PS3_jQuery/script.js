@@ -10,49 +10,44 @@ $(document).ready(function(){
 
 });
 
+
 class Select {
-    fetched = false;
 
-
-    choosedOption = '';
     constructor(selectClassName) {
         this.selectElement = $('#'.concat(selectClassName));
         //let selEl = this.selectElement;
         this.width = this.selectElement.width();
         this.height = this.selectElement.height(); //TODO may use initial height
-        //this.options = this.selectElement.html().split(/(?<=<\/div>).*?(?=<div>)/);// TODO use getchild
-        let options = this.selectElement.children();
-        //this.createElemsArray();
-        this.choosedOption = options[0];
-        console.log(options);
-        //this.addEventsToArrayedOptions(selectClassName, options);
-        this.setEventsToOptions(selectClassName);
-        //this.showSelect();
+        this.maxHeight = this.getMaxHeight($(this.selectElement).find('*'));
+        this.setEventsToOptions(selectClassName, this.maxHeight);
+        $(this.selectElement.children()[0]).height(this.maxHeight);
+        $(this.selectElement).height(this.maxHeight);
+        //$(this.selectElement).css('background-color','white').css('transparency',0);
+        $(this.selectElement).addClass('option-position');
+        this.selectElement.children()[0].click();
+        //TODO prepare select decomposition to  meth
     }
 
-    addEventsToArrayedOptions(selectClassName, options) {
-        $(options).on('click',options, function(event){
-            let selectedElement = $(event.target);
-            /*unwrap possible inner html elem to select option  == div*/
-            while (((selectedElement).parent().attr('class')) === undefined || !((selectedElement).parent().attr('class')).includes(selectClassName)){
-                selectedElement = $(selectedElement).parent();
-            }
-            let activeElement = $(options[0]);
-            if (selectedElement[0] === activeElement[0]){
-                console.log('equal');
-            }
-            /*$(activeElement).replaceWith($(selectedElement));
-            activeElement.insertAfter(selectedElement);*/
+
+    /*ret max height of select inner elems*/
+    getMaxHeight(selectElement) {
+        let maxHeight = 0;
+        $(selectElement).each((ind, child) => {
+            const tempHeight = $(child).outerHeight(true);
+            console.log(tempHeight);
+            maxHeight = tempHeight > maxHeight ? tempHeight : maxHeight;
         });
-
+        return maxHeight;
     }
+
 
     /*wo array, DOM only*/
-    setEventsToOptions(selectClassName) {
-        $(this.selectElement).on('click', function(event){
+    setEventsToOptions(selectClassName, maxHeight) {
+        $(this.selectElement).on('click enterpressed', function(event){
+            //$(this).children().addClass('select-shown');
             let selectedElement = event.target; // why if add $, then in while jquery elems not equals(((?
-            let activeElement = $($(this).children()[0]);
-            /*when clicked not on DIV option but on main select-DIV */
+            const activeElement = $($(this).children()[0]);
+            /*when clicked not on div option but on main select div */
             if (event.currentTarget === selectedElement) {return;}
             /*unwrap inner html elem to select option  == div*/
             while (($(selectedElement).parent().attr('class')) === undefined || !($(selectedElement).parent().attr('class')).includes(selectClassName)){
@@ -63,6 +58,16 @@ class Select {
             if (activeElement.toArray().some((actElem)=>{return $(selectedElement).toArray().some((selElem)=>{return actElem === selElem;})})){
                 console.log('equal');
 
+                $(this).children('*:not(:first-child)').toggleClass('select-not-shown');
+
+                let sumHeight = 0;
+                $(this).children().each((ind, child) => {
+                    $(child).css('position', 'absolute').css('top', sumHeight);
+                    sumHeight += $(child).height();
+                });
+                //$(this).height($($(this).children()[0]).height());
+                $($(this).children()[0]).removeClass('select-not-shown').addClass('select-shown');
+                $(this).height(maxHeight);
 
                 return;
             }
@@ -70,59 +75,15 @@ class Select {
             $(activeElement).replaceWith($(selectedElement));
             activeElement.insertAfter(selectedElement);
 
-        });
-    }
-
-    fetchSelect() {
-        this.selectElement.empty();
-
-        //this.selectElement = this.choosedOption;
-        this.selectElement.html(this.choosedOption);
-        /*this.showSelect();*/
-        this.selectElement.css('position','relative');
-        let heightElems = this.selectElement.height();
-        //let heightElems = 20;
-        this.options.forEach((v,i) => {
-            if (v === this.choosedOption) {
-                console.log(v);
-                return;} //TODO kill listener?
-            v.addClass('select-shown')
-                .css('position','absolute')
-                .css('display','block')
-                .css('top',heightElems)
-                .css('width',this.width).
-            off('click').click(() => {this.choosedOption = v;
-                this.showSelect.bind(this)});
-
-            this.selectElement.append(v);
-            console.log(v);
-            heightElems += v.height();
-            //heightElems += 20;
-        })
-        this.fetched = !this.fetched;
-    }
-
-
-    showSelect() {
-        this.selectElement.empty();
-
-        this.selectElement.html(this.choosedOption)
-            .addClass('select-shown').css('width',this.width).off('click').click(this.fetchSelect.bind(this));
-
-    }
-
-    createElemsArray() {
-        this.options.forEach((v,i)=>{
-
-            /* let currElem = $(v);*/
-            /*click(() => {
-                    this.choosedOption = v;
-                    this.showSelect.bind(this)});*/
-            this.options[i] = $(v);
+            /*show first (chosed) hide other*/
+            $(this).children().removeClass('select-shown').addClass('select-not-shown');
+            $($(this).children()[0]).removeClass('select-not-shown').addClass('select-shown').css('position','absolute')
+                .css('top',0);
 
         });
-        console.log(this.options);
+
     }
+
 
 
 }
