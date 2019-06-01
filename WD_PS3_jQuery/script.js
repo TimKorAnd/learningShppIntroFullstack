@@ -18,7 +18,8 @@ class Select {
         //let selEl = this.selectElement;
         this.width = this.selectElement.width();
         this.height = this.selectElement.height(); //TODO may use initial height
-        this.maxHeight = this.getMaxHeight($(this.selectElement).find('*'));
+        this.maxHeight = this.getMaxSize($(this.selectElement).find('*'),(elem) => {return $(elem).outerHeight(true);});
+        this.maxWidth = this.getMaxSize($(this.selectElement).find('*'),(elem) => {return $(elem).outerWidth(true);});
         this.setEventsToOptions(selectClassName, this.maxHeight);
         $(this.selectElement.children()[0]).height(this.maxHeight);
         $(this.selectElement).height(this.maxHeight);
@@ -28,16 +29,20 @@ class Select {
         //TODO prepare select decomposition to  meth
     }
 
+    transformElemsToSelectOptions(){
 
-    /*ret max height of select inner elems*/
-    getMaxHeight(selectElement) {
-        let maxHeight = 0;
+    }
+
+
+    /*ret max height or width (depends by getSize func)of select inner elems*/
+    getMaxSize(selectElement, getSize) {
+        let maxSize = 0;
         $(selectElement).each((ind, child) => {
-            const tempHeight = $(child).outerHeight(true);
-            console.log(tempHeight);
-            maxHeight = tempHeight > maxHeight ? tempHeight : maxHeight;
+            const tempSize = getSize(child);
+            console.log(`h: ${tempSize} `);
+            maxSize = tempSize > maxSize ? tempSize : maxSize;
         });
-        return maxHeight;
+        return maxSize;
     }
 
 
@@ -48,17 +53,19 @@ class Select {
             let selectedElement = event.target; // why if add $, then in while jquery elems not equals(((?
             const activeElement = $($(this).children()[0]);
             /*when clicked not on div option but on main select div */
-            if (event.currentTarget === selectedElement) {return;}
+            if (event.currentTarget === selectedElement) {
+                console.log('add handler');
+                return;}
             /*unwrap inner html elem to select option  == div*/
             while (($(selectedElement).parent().attr('class')) === undefined || !($(selectedElement).parent().attr('class')).includes(selectClassName)){
                 selectedElement = $(selectedElement).parent();
             }
 
-            //if (activeElement[0] === selectedElement[0] || activeElement[0] === selectedElement){
+            //if active element equal to selected(target) fetch / shrink
             if (activeElement.toArray().some((actElem)=>{return $(selectedElement).toArray().some((selElem)=>{return actElem === selElem;})})){
                 console.log('equal');
 
-                $(this).children('*:not(:first-child)').toggleClass('select-not-shown');
+                $(this).children('*:not(:first-child)').toggleClass('select-not-shown').css('width','100');
 
                 let sumHeight = 0;
                 $(this).children().each((ind, child) => {
@@ -66,8 +73,8 @@ class Select {
                     sumHeight += $(child).height();
                 });
                 //$(this).height($($(this).children()[0]).height());
-                $($(this).children()[0]).removeClass('select-not-shown').addClass('select-shown');
-                $(this).height(maxHeight);
+                /*$($(this).children()[0]).removeClass('select-not-shown').addClass('select-shown');
+                $(this).height(maxHeight);*/
 
                 return;
             }

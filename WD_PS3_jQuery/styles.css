@@ -1,10 +1,6 @@
 * {
-  /*margin: 0;*/
   box-sizing: border-box;
 }
-/*.test-select {
-  width: 50vh;
-}*/
 
 .test-select {
   position: relative;
@@ -24,7 +20,7 @@
 }
 
 .option-position {
-  border: solid 0.1vh black;
+  border: solid 0.1vh red;
   background-color: white ;
   display: block;
 }
