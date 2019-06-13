@@ -14,7 +14,7 @@
       padding: 0;
     }
     
-    .slider .slider-previews li {
+    .slider .slider-preview li {
       display: inline-block;
       list-style-type: none;
       margin: 0 1rem;
@@ -22,24 +22,16 @@
       border: 5px solid transparent;
     }
     
-    .slider .slider-previews li img {
+    .slider .slider-preview li img {
       display: block;
     }
     
-    .slider .slider-previews li.current {
+    .slider .slider-preview li .current {
       border: 5px solid rgba(0,0,0,0.2);
     }
 
-    /*make horizontal ul*/
-    .slider-previews {
-      margin: 0; /* Обнуляем значение отступов */
-      padding: 4px; /* Значение полей */
-    }
-    .slider-previews li {
-      display: inline; /* Отображать как строчный элемент */
-      margin-right: 5px; /* Отступ слева */
-      border: 1px solid #000; /* Рамка вокруг текста */
-      padding: 3px; /* Поля вокруг текста */
+    .slider-preview {
+      padding: 0;
     }
 
   </style>
@@ -52,7 +44,7 @@
       <div class="slider-current">
         <img src="https://picsum.photos/600/400/?image=1080" alt="0">
       </div>
-      <ul id="slider-preview" class="slider-previews">
+      <ul id="slider-preview" class="slider-preview">
       </ul>
     </div>
   </section>
