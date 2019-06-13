@@ -22,23 +22,33 @@ $(() => {
 
 class Slider {
   constructor(){
+    this.imgBigDOMElem = [];
     this.showImgPreviews();
     this.slider = $('#slider');
     this.imgPreview = $('#slider-preview li img');
     this.currImgIndex = 0;
     this.setEventsToSliderElems();
-    this.imgPreview[0].click();
-    //this.showCurrentImage();
+    this.imgPreview[this.currImgIndex].click();
   }
+
 
   showImgPreviews(){
     const sliderPrev = $('#slider-preview');
     IMAGES.forEach((imgElem, i) =>{
       const liDOMElem = $('<li></li>');
       const imgDOMElem = $('<img>').attr('src',`${API_URL}${SMALL_SIZE}/${imgElem}`).attr('alt',i);
+
+      this.loadBigImgToDOM(imgElem, i);
+
       liDOMElem.append(imgDOMElem);
       sliderPrev.append(liDOMElem);
     })
+  }
+
+  /*create associated map & load into DOM for better perfomance*/
+  loadBigImgToDOM(imgElem, i) {
+    this.imgBigDOMElem[`${API_URL}${SMALL_SIZE}/${imgElem}`] = `${API_URL}${BIG_SIZE}/${imgElem}`;
+    $('#slider div').append($('<img>', {'src': `${API_URL}${BIG_SIZE}/${imgElem}`, 'alt': i, 'class': 'invisible'}));//.addClass('invisible'));
   }
 
   setEventsToSliderElems(){
@@ -53,18 +63,19 @@ class Slider {
     });
 
       this.slider.click((event) => {
-        if ($(event.target).is('li img')){
+        if ($(event.target).is('#slider-preview li img')){
           this.currImgIndex = $(event.target).attr('alt');
           this.imgPreview.removeClass('current');
         $(event.target).addClass('current');
-          this.showCurrentImage();
+          this.showCurrentImage($(event.target).attr('src'));
         }
       });
   }
 
-  showCurrentImage(){
-    $('#slider div img')
-        .attr('src',`${API_URL}${BIG_SIZE}/${IMAGES[this.currImgIndex]}`);
+  showCurrentImage(imgSrc){
+    $('#slider div img').addClass('invisible');
+    const strSelector = `img[src=\'${this.imgBigDOMElem[imgSrc]}\']`;
+    $('#slider div').find(strSelector).removeClass('invisible');
   }
 
   rightShift(){
@@ -72,7 +83,6 @@ class Slider {
     $('.slider-preview').find().removeClass('current');
     $(`#slider-preview li:eq(${this.currImgIndex}) img`).click();
   }
-
 
   leftShift(){
     this.currImgIndex = this.currImgIndex === 0 ? IMAGES.length - 1 : --this.currImgIndex;
