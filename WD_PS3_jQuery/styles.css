@@ -1,26 +1,6 @@
 * {
   box-sizing: border-box;
 }
-
-.test-select {
-  position: relative;
-  background-color: white ;
-}
-
-.select-shown {
-  border: solid 0.1vh black;
-  background-color: white ;
-  position: absolute;
-  display: block;
-  opacity: 100% ;
-}
-
-.select-not-shown {
-  display:none;
-}
-
-.option-position {
-  border: solid 0.1vh red;
-  background-color: white ;
-  display: block;
-}
+ .select {
+   list-style: none
+ }
