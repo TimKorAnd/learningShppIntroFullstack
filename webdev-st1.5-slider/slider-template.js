@@ -50,45 +50,44 @@ class Slider {
   setEventsToSliderElems(){
     $('html').keydown((e) => {
       if (e.keyCode === DOM_VK_LEFT) {
-        this.showBigImageBySrc(this.getImgSrcForLeftShift());
-
+        this.changeCurrentImgs(this.getCurrForLeftShift());
       }
     }).keydown((e) => {
       if (e.keyCode === DOM_VK_RIGHT) {
-        this.showBigImageBySrc(this.getImgSrcForRightShift());
+        this.changeCurrentImgs(this.getCurrForRightShift());
       }
     });
 
       $('#slider-preview li img').click((event) => {
-          this.imgPreviewElems.removeClass('current');
-        $(event.target).parent().addClass('current');
-          this.showBigImageBySrc($(event.target).attr('src'));
+        this.changeCurrentImgs($(event.target).parent())
       });
   }
 
-  showBigImageBySrc(imgSrc){
-    this.bigImgElem.attr('src', `${this.bigImgSrcs[imgSrc]}`);
+  changeCurrentImgs(previewElem){
+    this.setCurrPreviewElem(previewElem);
+    this.showBigImageByPreviewImgSrc(previewElem.children().attr('src'));
   }
 
-  getImgSrcForRightShift(){
-    const $currPreviewElem = $('#slider-preview .current');
-    $currPreviewElem.removeClass('current');
-    if ($currPreviewElem.is(':last-child')){
-      $('#slider-preview  li:first').addClass('current');
-    } else {
-      $currPreviewElem.next('li').addClass('current');
-    }
-    return ($('#slider-preview .current img').attr('src'));
+  setCurrPreviewElem(elem) {
+    this.imgPreviewElems.removeClass('current');
+    $(elem).addClass('current');
   }
 
-  getImgSrcForLeftShift(){
+  showBigImageByPreviewImgSrc(previewImgSrc){
+    this.bigImgElem.attr('src', `${this.bigImgSrcs[previewImgSrc]}`);
+  }
+
+  getCurrForRightShift(){
     const $currPreviewElem = $('#slider-preview .current');
-    $currPreviewElem.removeClass('current');
-    if ($currPreviewElem.is(':first-child')){
-      $('#slider-preview  li:last').addClass('current');
-    } else {
-      $currPreviewElem.prev('li').addClass('current');
-    }
-    return ($('#slider-preview .current img').attr('src'));
+    const $nextPreviewElem = ($currPreviewElem.is(':last-child')) ? $('#slider-preview  li:first') :
+        $currPreviewElem.next('li');
+    return $nextPreviewElem;
+  }
+
+  getCurrForLeftShift(){
+    const $currPreviewElem = $('#slider-preview .current');
+    const $nextPreviewElem = ($currPreviewElem.is(':first-child')) ? $('#slider-preview  li:last') :
+        $currPreviewElem.prev('li');
+    return $nextPreviewElem;
   }
 }
