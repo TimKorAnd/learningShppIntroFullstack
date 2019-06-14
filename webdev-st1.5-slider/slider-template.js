@@ -52,7 +52,7 @@ class Slider {
       if (e.keyCode === DOM_VK_LEFT) {
         this.changeCurrentImgs(this.getCurrForLeftShift());
       }
-    }).keydown((e) => {
+    else
       if (e.keyCode === DOM_VK_RIGHT) {
         this.changeCurrentImgs(this.getCurrForRightShift());
       }
