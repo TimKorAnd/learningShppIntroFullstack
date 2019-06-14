@@ -30,7 +30,6 @@ class Slider {
     $('#slider-preview :first').addClass('current');
   }
 
-
   showImgPreviews(){
     const sliderPrev = $('#slider-preview');
     IMAGES.forEach((imgElem, i) =>{
@@ -41,7 +40,6 @@ class Slider {
       sliderPrev.append(liDOMElem);
     })
   }
-
   /* create img src associated map */
   createBigImgSrcMap(imgElem) {
     this.bigImgSrcs[`${API_URL}${SMALL_SIZE}/${imgElem}`] = `${API_URL}${BIG_SIZE}/${imgElem}`;
@@ -78,16 +76,12 @@ class Slider {
   }
 
   getCurrForRightShift(){
-    const $currPreviewElem = $('#slider-preview .current');
-    const $nextPreviewElem = ($currPreviewElem.is(':last-child')) ? $('#slider-preview  li:first') :
-        $currPreviewElem.next('li');
-    return $nextPreviewElem;
+    return $('#slider-preview .current').is(':last-child') ? $('#slider-preview  li:first') :
+        $('#slider-preview .current').next('li');
   }
 
   getCurrForLeftShift(){
-    const $currPreviewElem = $('#slider-preview .current');
-    const $nextPreviewElem = ($currPreviewElem.is(':first-child')) ? $('#slider-preview  li:last') :
-        $currPreviewElem.prev('li');
-    return $nextPreviewElem;
+    return $('#slider-preview .current').is(':first-child') ? $('#slider-preview  li:last') :
+        $('#slider-preview .current').prev('li');
   }
 }
