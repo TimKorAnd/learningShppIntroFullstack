@@ -22,7 +22,7 @@ $(() => {
 
 class Slider {
   constructor(){
-    this.bigImgSrcs = [];
+    this.bigImgSrcs = Object.create(null);
     this.bigImgElem = $('#slider-current img')
     this.showImgPreviews();
     this.imgPreviewElems = $('#slider-preview li');
