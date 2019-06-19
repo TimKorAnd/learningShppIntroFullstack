@@ -1,6 +1,7 @@
 * {
   box-sizing: border-box;
 }
- .select {
-   list-style: none
+
+ .custom-select {
+   list-style: none;
  }
