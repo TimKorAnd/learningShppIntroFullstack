@@ -24,23 +24,24 @@ class Select {
         })*/
         $sel.children('li').on('mouseenter', (e) => {
             $(e.target).closest('li').css('color', 'blue');
-            //console.log(`enter ${$(e.target).closest('li')}`);
+
         }).on('mouseleave', (e) => {
             $(e.target).closest('li').css('color', 'black');
-            //console.log(`leave ${$(e.target).closest('li')}`);
+
         })
 
         $sel.children('li').on('click', (e) => {
             $(e.target).closest('li').not(':first-child').addClass('option-hide');
+            //return false;
         })
 
         $sel.children('li:first-child').on('click', (e) => {
             $sel.find('li').removeClass('option-hide');
-            return false;
+            //return false;
         })
 
         $(document).on('click.custom-select',(e) => {
-            if ($(e.target).closest('custom-select').length === 0) {
+            if ($(e.target).closest('.custom-select').length === 0) {
                 $sel.find('li:not(:first-child)').addClass('option-hide');
             }
         })
