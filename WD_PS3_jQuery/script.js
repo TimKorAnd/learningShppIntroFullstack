@@ -3,6 +3,7 @@
 const API_URL = 'https://picsum.photos/60';
 
 const OPTIONS = [
+    {name:'select one option', src:'?image=1081'},
     {name:'name1', src:'?image=1080'},
     {name:'name2', src:'?image=1079'},
     {name:'name3', src:'?image=1078'},
@@ -23,30 +24,28 @@ class Select {
 
     constructor(selectClassName, optionsList) {
 
-        this.renderSelect(selectClassName, optionsList);
+        this.renderSelect(selectClassName, optionsList, 2);
         const $sel = $('.' + selectClassName);
         this.eventsAttach($sel);
     }
 
-    renderSelect(selectClassName, optionsList) {
-        const $selDomElement = $('<ul></ul>').addClass(selectClassName)
-            .prepend('<span id="select-one-off-title">select one option</span>');
+    renderSelect(selectClassName, optionsList, choosedElemInd) {
+        const $selDomElement = $('<ul></ul>').addClass(selectClassName);
+            /*.prepend('<span id="select-one-off-title">select one option</span>');*/
         $(`#${selectClassName}`).prepend($selDomElement);
         optionsList.forEach((optElem, i) =>{
-            const liDOMElem = $('<li>').addClass('select-option option-hide');
-            const optImgDOMElem = $('<img>').attr('src',`${API_URL}/${optElem.src}`);
-            const optNameDOMElem = $('<span>').html(optElem.name);
-            liDOMElem.append(optImgDOMElem).append(optNameDOMElem);
-            $selDomElement.append(liDOMElem);
+            const $liDOMElem = $('<li>').addClass('select-option');
+            if (i !== choosedElemInd) {
+                $liDOMElem.addClass('option-hide');
+            }
+            const $optImgDOMElem = $('<img>').attr('src',`${API_URL}/${optElem.src}`);
+            const $optNameDOMElem = $('<span>').html(optElem.name);
+            $liDOMElem.append($optImgDOMElem).append($optNameDOMElem);
+            $selDomElement.append($liDOMElem);
         })
     }
 
     eventsAttach($sel) {
-        $sel.one('click', (e) => {
-            $sel.find('#select-one-off-title').remove();
-            $sel.children('li').removeClass('option-hide');
-            return false;
-        });
 
         $sel.children('li').on('mouseenter', (e) => {
             $(e.target).closest('li').css('color', 'blue');
@@ -54,7 +53,7 @@ class Select {
         }).on('mouseleave', (e) => {
             $(e.target).closest('li').css('color', 'black');
 
-        })
+        });
 
         $sel.children('li').on('click', (e) => {
             $(e.target).closest('li').not(':first-child').addClass('option-hide');
