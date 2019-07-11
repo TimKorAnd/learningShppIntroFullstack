@@ -4,16 +4,26 @@
 
  .custom-select {
    list-style: none;
-   width: 200px;
+   width: 0;
    border: 1px solid;
    padding: 5px;
    border-radius: 5%;
  }
 
+.custom-select ul {
+  border: 1px solid;
+  border-radius: 5%;
+}
+
+.custom-select img {
+  border-radius: 15%;
+  margin: 0 10px 0 10px;
+}
+
 .select-option {
- display: flex;
+  display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: left;
 }
 
 .option-hide {

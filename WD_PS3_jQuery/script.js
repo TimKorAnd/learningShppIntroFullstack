@@ -6,7 +6,7 @@ const OPTIONS = [
     {name:'select one option', src:'?image=1081'},
     {name:'name1', src:'?image=1080'},
     {name:'name2', src:'?image=1079'},
-    {name:'name3', src:'?image=1078'},
+    {name:'name3tetetetetetetetettetetetetddddddddddddddddddddddddddddddddddddetetetteerewrwerewetetetetetet', src:'?image=1078'},
     {name:'name4', src:'?image=1077'},
     {name:'name5', src:'?image=1076'},
     {name:'name6', src:'?image=1075'},
@@ -23,10 +23,26 @@ $(() => {
 class Select {
 
     constructor(selectClassName, optionsList) {
-
         this.creatCustomSelectElem(selectClassName, optionsList);
         const $sel = $('.' + selectClassName);
+        $sel.width(this.getMaxOptWidt($sel));
         this.eventsAttach($sel);
+    }
+
+  /*  getMaxOptWidt(options) {
+        return options.reduce((maxWidth, curr) => {
+            return  curr.name.length > maxWidth ? curr.name.length : maxWidth;
+        })
+    }*/
+
+    getMaxOptWidt($sel) {
+        let maxWidth =0;
+        $sel.children('li').each((i, currElem) => {
+            if ($(currElem).outerWidth() > maxWidth) {
+                maxWidth = $(currElem).outerWidth();
+            }
+        })
+        return maxWidth * 1.2;
     }
 
     creatCustomSelectElem(customSelectClassName, optionsList) {
