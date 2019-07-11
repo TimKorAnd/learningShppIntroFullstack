@@ -24,25 +24,25 @@ class Select {
 
     constructor(selectClassName, optionsList) {
 
-        this.renderSelect(selectClassName, optionsList, 2);
+        this.creatCustomSelectElem(selectClassName, optionsList);
         const $sel = $('.' + selectClassName);
         this.eventsAttach($sel);
     }
 
-    renderSelect(selectClassName, optionsList, choosedElemInd) {
-        const $selDomElement = $('<ul></ul>').addClass(selectClassName);
+    creatCustomSelectElem(customSelectClassName, optionsList) {
+        const $customSelectElement = $('<ul></ul>').addClass(customSelectClassName);
             /*.prepend('<span id="select-one-off-title">select one option</span>');*/
-        $(`#${selectClassName}`).prepend($selDomElement);
+        $(`#${customSelectClassName}`).prepend($customSelectElement);
         optionsList.forEach((optElem, i) =>{
-            const $liDOMElem = $('<li>').addClass('select-option');
-            if (i !== choosedElemInd) {
-                $liDOMElem.addClass('option-hide');
-            }
-            const $optImgDOMElem = $('<img>').attr('src',`${API_URL}/${optElem.src}`);
-            const $optNameDOMElem = $('<span>').html(optElem.name);
-            $liDOMElem.append($optImgDOMElem).append($optNameDOMElem);
-            $selDomElement.append($liDOMElem);
+            const $optionElem = $('<li>').addClass('select-option');
+            $optionElem.addClass('option-hide');
+            const $optImgElem = $('<img>').attr('src',`${API_URL}/${optElem.src}`);
+            const $optNameElem = $('<span>').html(optElem.name);
+            $optionElem.append($optImgElem).append($optNameElem);
+            $customSelectElement.append($optionElem);
         })
+        $customSelectElement.children('li').first().removeClass('option-hide');
+
     }
 
     eventsAttach($sel) {
@@ -55,13 +55,19 @@ class Select {
 
         });
 
-        $sel.children('li').on('click', (e) => {
-            $(e.target).closest('li').not(':first-child').addClass('option-hide');
-            //return false;
+        $sel.children('li:not(:first-child)').on('click', (e) => {
+            $sel.children('li').first().children('img').attr('src',
+            $(e.target).closest('li').children('img').attr('src'));
+
+            $sel.children('li').first().children('span').html(
+                $(e.target).closest('li').children('span').html());
+
+            $sel.children('li:not(:first-child)').addClass('option-hide');
+
         })
 
         $sel.children('li:first-child').on('click', (e) => {
-            $sel.find('li').removeClass('option-hide');
+            $sel.find('li:not(:first-child)').toggleClass('option-hide');
             //return false;
         })
 
