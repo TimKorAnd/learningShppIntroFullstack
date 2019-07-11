@@ -3,27 +3,46 @@
 }
 
  .custom-select {
+   position: absolute;
    list-style: none;
    width: 0;
-   border: 1px solid;
+   border: 2px solid;
    padding: 5px;
    border-radius: 5%;
  }
 
-.custom-select ul {
-  border: 1px solid;
+.select-option {
+  border-bottom: 1px solid;
   border-radius: 5%;
+}
+
+.select-option:first-child {
+  border-bottom: 1px solid;
+  border-radius: 5%;
+}
+
+.select-option:first-child::after {
+  content: "\25BC";
+  margin-right: 10px;
+  flex-grow: 0;
 }
 
 .custom-select img {
   border-radius: 15%;
   margin: 0 10px 0 10px;
+  flex: initial;
+}
+
+.custom-select span {
+  border-radius: 15%;
+  margin: 0 10px 0 10px;
+  flex: auto;
 }
 
 .select-option {
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: flex-start;
 }
 
 .option-hide {

@@ -3,10 +3,10 @@
 const API_URL = 'https://picsum.photos/60';
 
 const OPTIONS = [
-    {name:'select one option', src:'?image=1081'},
-    {name:'name1', src:'?image=1080'},
+    {name:'select'+'&nbsp'+'one'+'&nbsp'+'option', src:'?image=1081'},
+    {name:'nameeeeeeeeeeeeeeeeeeeeee1', src:'?image=1080'},
     {name:'name2', src:'?image=1079'},
-    {name:'name3tetetetetetetetettetetetetddddddddddddddddddddddddddddddddddddetetetteerewrwerewetetetetetet', src:'?image=1078'},
+    {name:'name3', src:'?image=1078'},
     {name:'name4', src:'?image=1077'},
     {name:'name5', src:'?image=1076'},
     {name:'name6', src:'?image=1075'},
@@ -36,13 +36,13 @@ class Select {
     }*/
 
     getMaxOptWidt($sel) {
-        let maxWidth =0;
+        let maxWidth =150;
         $sel.children('li').each((i, currElem) => {
             if ($(currElem).outerWidth() > maxWidth) {
                 maxWidth = $(currElem).outerWidth();
             }
         })
-        return maxWidth * 1.2;
+        return maxWidth *1.25 + 50;
     }
 
     creatCustomSelectElem(customSelectClassName, optionsList) {
@@ -64,10 +64,12 @@ class Select {
     eventsAttach($sel) {
 
         $sel.children('li').on('mouseenter', (e) => {
-            $(e.target).closest('li').css('color', 'blue');
+            $(e.target).closest('li').css('color', 'white')
+                .css('background-color','gray');
 
         }).on('mouseleave', (e) => {
-            $(e.target).closest('li').css('color', 'black');
+            $(e.target).closest('li').css('color', 'black')
+                .css('background-color','white');
 
         });
 
