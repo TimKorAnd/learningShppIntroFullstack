@@ -2,8 +2,12 @@
   box-sizing: border-box;
 }
 
+#custom-select {
+  position: absolute;
+}
+
  .custom-select {
-   position: absolute;
+   position: relative;
    list-style: none;
    width: 0;
    border: 2px solid;
@@ -12,6 +16,7 @@
  }
 
 .select-option {
+  position: relative;
   border-bottom: 1px solid;
   border-radius: 5%;
 }
