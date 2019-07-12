@@ -5,11 +5,11 @@ const API_URL = 'https://picsum.photos/60';
 const OPTIONS = [
     {name:'select'+'&nbsp'+'one'+'&nbsp'+'option', src:'?image=1081'},
     {name:'nameeeeeeeeeeeeeeeeeeeeee1', src:'?image=1080'},
-    {name:'name2', src:'?image=1079'},
-    {name:'name3', src:'?image=1078'},
+    {name:'nameeeeeeee2', src:'?image=1079'},
+    {name:'nameeeee3', src:'?image=1078'},
     {name:'name4', src:'?image=1077'},
-    {name:'name5', src:'?image=1076'},
-    {name:'name6', src:'?image=1075'},
+    {name:'na5', src:'?image=1076'},
+    {name:'', src:'?image=1075'},
     {name:'name7', src:'?image=1074'},
     ];
 $(() => {

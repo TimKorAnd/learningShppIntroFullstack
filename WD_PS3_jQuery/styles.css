@@ -1,13 +1,20 @@
 * {
   box-sizing: border-box;
+  position: relative;
 }
 
 #custom-select {
-  position: absolute;
+  position: relative;
+  z-index: 100;
+}
+.other {
+  position: relative;
+  z-index: 1;
 }
 
  .custom-select {
    position: relative;
+   z-index: 9;
    list-style: none;
    width: 0;
    border: 2px solid;
@@ -16,7 +23,6 @@
  }
 
 .select-option {
-  position: relative;
   border-bottom: 1px solid;
   border-radius: 5%;
 }
@@ -33,12 +39,14 @@
 }
 
 .custom-select img {
+  z-index: inherit;
   border-radius: 15%;
   margin: 0 10px 0 10px;
   flex: initial;
 }
 
 .custom-select span {
+  z-index: inherit;
   border-radius: 15%;
   margin: 0 10px 0 10px;
   flex: auto;
