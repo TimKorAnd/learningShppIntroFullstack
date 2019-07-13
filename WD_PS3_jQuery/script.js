@@ -26,23 +26,21 @@ class Select {
         this.creatCustomSelectElem(selectClassName, optionsList);
         const $sel = $('.' + selectClassName);
         $sel.width(this.getMaxOptWidt($sel));
+        /*set height for wrapper*/
+        $(`#${selectClassName}`).height($sel.outerHeight(true) *1.25);
+        console.log($sel.outerHeight(true));
         this.eventsAttach($sel);
     }
 
-  /*  getMaxOptWidt(options) {
-        return options.reduce((maxWidth, curr) => {
-            return  curr.name.length > maxWidth ? curr.name.length : maxWidth;
-        })
-    }*/
 
     getMaxOptWidt($sel) {
-        let maxWidth =150;
+        let maxWidth = 150;
         $sel.children('li').each((i, currElem) => {
-            if ($(currElem).outerWidth() > maxWidth) {
-                maxWidth = $(currElem).outerWidth();
+            if ($(currElem).outerWidth(true) > maxWidth) {
+                maxWidth = $(currElem).outerWidth(true);
             }
         })
-        return maxWidth *1.25 + 50;
+        return maxWidth *1.25 + 80;
     }
 
     creatCustomSelectElem(customSelectClassName, optionsList) {
