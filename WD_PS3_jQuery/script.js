@@ -27,12 +27,12 @@ class Select {
         const $sel = $('.' + selectClassName);
         $sel.width(this.getMaxOptWidt($sel));
         /*set height for wrapper*/
-        $(`#${selectClassName}`).height($sel.outerHeight(true) *1.25);
+        $(`#${selectClassName}`).height($sel.outerHeight(true) *1.3);
         console.log($sel.outerHeight(true));
         this.eventsAttach($sel);
     }
 
-
+/*get width for custom select depen max option length*/
     getMaxOptWidt($sel) {
         let maxWidth = 150;
         $sel.children('li').each((i, currElem) => {
@@ -40,7 +40,7 @@ class Select {
                 maxWidth = $(currElem).outerWidth(true);
             }
         })
-        return maxWidth *1.25 + 80;
+        return maxWidth *1.5;
     }
 
     creatCustomSelectElem(customSelectClassName, optionsList) {
@@ -61,7 +61,7 @@ class Select {
 
     eventsAttach($sel) {
 
-        $sel.children('li').on('mouseenter', (e) => {
+        $sel.children('li:not(:first-child)').on('mouseenter', (e) => {
             $(e.target).closest('li').css('color', 'white')
                 .css('background-color','gray');
 
