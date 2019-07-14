@@ -28,7 +28,7 @@ class Select {
         $sel.width(this.getMaxOptWidt($sel));
         /*set height for wrapper*/
         $(`#${selectClassName}`).height($sel.outerHeight(true) *1.3);
-        console.log($sel.outerHeight(true));
+        $sel.attr('tabindex',0);
         this.eventsAttach($sel);
     }
 
@@ -64,12 +64,22 @@ class Select {
         $sel.children('li:not(:first-child)').on('mouseenter', (e) => {
             $(e.target).closest('li').css('color', 'white')
                 .css('background-color','gray');
-
         }).on('mouseleave', (e) => {
             $(e.target).closest('li').css('color', 'black')
                 .css('background-color','white');
-
         });
+
+        $sel.children('li:first-child').on('mouseenter', (e) => {
+            $sel.css('border-color', 'blue');
+            $sel.focus();
+        }).on('mouseleave', (e) => {
+            $sel.css('border-color', 'black');
+            $sel.blur();
+        });
+
+        $sel.on('focus',() =>{console.log('in focus')})
+            .on('blur',() =>{console.log('in blur')});
+
 
         $sel.children('li:not(:first-child)').on('click', (e) => {
             $sel.children('li').first().children('img').attr('src',
