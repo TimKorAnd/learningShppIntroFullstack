@@ -311,10 +311,16 @@ function outputCheckedLinksWithoutHTTPs(inputTextId, resultOutputId){
     function isValidLinkOrIPv4(str) {
         return (IPv4_VALID.test(str)||((LINK_VALID.test(str))&&(!INVALID_DASH_AND_UNDERSCORE_TEST.test(str))&&(str.length <= LINK_MAX_LENGTH)));
     }
-
+    const WSLASH = /^\d/;
+    let strKey;
     inputArray.forEach(str => {
         if (isValidLinkOrIPv4(str)){
-            outputArray.set(str.replace(LINK_WO_PROTOCOL, WWW_NOT_LOCALE), str.replace(LINK_HTTPs,''));
+            /* for link to web , not local host*/
+            strKey =str;
+            if ( WSLASH.test(str.replace(LINK_WO_PROTOCOL, WWW_NOT_LOCALE))) {
+                strKey = '//'+str;
+            }
+            outputArray.set(strKey.replace(LINK_WO_PROTOCOL, WWW_NOT_LOCALE), str.replace(LINK_HTTPs,''));
         }
     });
 
