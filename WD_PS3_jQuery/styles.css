@@ -7,12 +7,13 @@
 }
 
  .custom-select {
+   outline: none;
    cursor:pointer;
    position: absolute;
    z-index: 100;
 
    list-style: none;
-   width: 0;
+   width: fit-content;
    border: 2px solid;
    padding: 5px;
    border-radius: 5mm;
@@ -25,6 +26,15 @@
   margin: 1px 0 1px 0;
   border-bottom: 1px solid;
   border-radius: 5mm;
+}
+
+.select-option:not(:first-child):hover {
+  color: white;
+  background-color: cadetblue;
+}
+
+.select-option:first-child:hover {
+  border-color: cadetblue;
 }
 
 .select-option:first-child {

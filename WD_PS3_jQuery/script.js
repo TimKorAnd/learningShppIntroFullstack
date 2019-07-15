@@ -4,7 +4,7 @@ const API_URL = 'https://picsum.photos/60';
 
 const OPTIONS = [
     {name:'select'+'&nbsp'+'one'+'&nbsp'+'option', src:'?image=1081'},
-    {name:'nameeeeeeeeeeeeeeeeeeeeee1', src:'?image=1080'},
+    {name:'nameeeeeeeeeeeeeefgdfgdfdfggggggggggggggggggfffffffffffffffffgdfgsdfgdfgee1', src:'?image=1080'},
     {name:'nameeeeeeee2', src:'?image=1079'},
     {name:'nameeeee3', src:'?image=1078'},
     {name:'name4', src:'?image=1077'},
@@ -32,21 +32,26 @@ class Select {
         this.eventsAttach($sel);
     }
 
-/*get width for custom select depen max option length*/
+/*get width for custom select depend max option length (if it >) or given by attribute*/
     getMaxOptWidt($sel) {
-        let maxWidth = 150;
-        $sel.children('li').each((i, currElem) => {
-            if ($(currElem).outerWidth(true) > maxWidth) {
-                maxWidth = $(currElem).outerWidth(true);
+        let maxWidth = +$sel.attr('minWidth');
+        $sel.children('li:not(:first-child)').removeClass('option-hide');
+        $sel.children().each((i, currElem) => {
+            let liWidth = $(currElem).outerWidth(true) + 100;//$(currElem).find('img').width();
+            if (liWidth  > maxWidth) {
+                maxWidth = liWidth;
+                console.log(maxWidth);
             }
         })
-        return maxWidth *1.5;
+       $sel.children('li:not(:first-child)').addClass('option-hide');
+        return maxWidth ;
     }
 
     creatCustomSelectElem(customSelectClassName, optionsList) {
         const $customSelectElement = $('<ul></ul>').addClass(customSelectClassName);
-            /*.prepend('<span id="select-one-off-title">select one option</span>');*/
-        $(`#${customSelectClassName}`).prepend($customSelectElement);
+        const $customSelectWrapper = $(`#${customSelectClassName}`);
+        $customSelectElement.attr('minWidth', $customSelectWrapper.attr('minWidth'));
+        $customSelectWrapper.prepend($customSelectElement);
         optionsList.forEach((optElem, i) =>{
             const $optionElem = $('<li>').addClass('select-option');
             $optionElem.addClass('option-hide');
@@ -62,19 +67,17 @@ class Select {
     eventsAttach($sel) {
 
         $sel.children('li:not(:first-child)').on('mouseenter', (e) => {
-            $(e.target).closest('li').css('color', 'white')
-                .css('background-color','gray');
+            $(e.target).closest('li').focus();
         }).on('mouseleave', (e) => {
-            $(e.target).closest('li').css('color', 'black')
-                .css('background-color','white');
+            $(e.target).closest('li').blur();
         });
 
         $sel.children('li:first-child').on('mouseenter', (e) => {
-            $sel.css('border-color', 'blue');
-            $sel.focus();
+            $sel.css('border-color', 'cadetblue');
+            //$sel.focus();
         }).on('mouseleave', (e) => {
             $sel.css('border-color', 'black');
-            $sel.blur();
+            //$sel.blur();
         });
 
         $sel.on('focus',() =>{console.log('in focus')})
