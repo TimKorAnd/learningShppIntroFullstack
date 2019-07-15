@@ -4,7 +4,7 @@ const API_URL = 'https://picsum.photos/60';
 
 const OPTIONS = [
     {name:'select'+'&nbsp'+'one'+'&nbsp'+'option', src:'?image=1081'},
-    {name:'nameeeeeeeeeeeeeefgdfgdfdfggggggggggggggggggfffffffffffffffffgdfgsdfgdfgee1', src:'?image=1080'},
+    {name:'nameeeeeeeeeeeeeefgdfgdfdfgdfgsdfgdfgee1', src:'?image=1080'},
     {name:'nameeeeeeee2', src:'?image=1079'},
     {name:'nameeeee3', src:'?image=1078'},
     {name:'name4', src:'?image=1077'},
@@ -57,7 +57,9 @@ class Select {
             $optionElem.addClass('option-hide');
             const $optImgElem = $('<img>').attr('src',`${API_URL}/${optElem.src}`);
             const $optNameElem = $('<span>').html(optElem.name);
-            $optionElem.append($optImgElem).append($optNameElem);
+            $optionElem.append($optImgElem)
+                .append($optNameElem)
+                .attr('tabindex',0);
             $customSelectElement.append($optionElem);
         })
         $customSelectElement.children('li').first().removeClass('option-hide');
@@ -96,15 +98,19 @@ class Select {
         })
 
         $sel.children('li:first-child').on('click', (e) => {
-            $sel.find('li:not(:first-child)').toggleClass('option-hide');
-            //return false;
-        })
+            $(e.target).focus();
+            $sel.find('li:not(:first-child)').toggleClass('option-hide')
+        }).on('keydown', (e) => {
+            console.log('keydown');
+        });
 
         $(document).on('click.custom-select',(e) => {
             if ($(e.target).closest('.custom-select').length === 0) {
                 $sel.find('li:not(:first-child)').addClass('option-hide');
             }
         })
+
+
 
     }
 
