@@ -3,6 +3,7 @@
 const API_URL = 'https://picsum.photos/60';
 const DOM_VK_UP = 38;
 const DOM_VK_DOWN = 40;
+const DOM_VK_ENTER = 13;
 const BOTTOM_MARGIN = 30;
 
 const OPTIONS = [
@@ -41,7 +42,6 @@ class Select {
             let liWidth = $(currElem).outerWidth(true) + 100;//$(currElem).find('img').width(); //100 = IMG.outerWidth
             if (liWidth  > maxWidth) {
                 maxWidth = liWidth;
-                console.log(maxWidth);
             }
         })
         $sel.children('li:not(:first-child)').addClass('option-hide');
@@ -75,7 +75,6 @@ class Select {
     }
 
     eventsAttach($sel) {
-
         $sel.children('li:not(:first-child)').on('mousemove', this.mouseEnterHandler);
 
         $sel.children('li:not(:first-child)').on('mouseenter', this.mouseEnterHandler)
@@ -94,7 +93,7 @@ class Select {
         });
 
         $sel.on('keydown', (e) => {
-                this.changeOptionsByKeys($sel, e.keyCode);
+            this.changeOptionsByKeys($sel, e.keyCode);
             });
 
         $sel.children('li:not(:first-child)').on('click', (e) => {
@@ -136,6 +135,7 @@ class Select {
                 this.setTitleOptionBySelected($sel, this.downOption($sel, $currOption));
                 break;
             }
+            default: $currOption.click();
         };
 
     }
