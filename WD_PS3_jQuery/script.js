@@ -59,7 +59,9 @@ class Select {
             $optionElem.addClass('option-hide');
             const $optImgElem = $('<img>').attr('src',`${API_URL}/${optElem.src}`);
             const $optNameElem = $('<span>').html(optElem.name);
-            $optionElem.append($optImgElem).append($optNameElem).attr('tabindex',0);
+            $optionElem.append($optImgElem)
+                .append($optNameElem)
+                .attr('tabindex',0);
             $customSelectElement.append($optionElem);
         })
         $customSelectElement.children('li').first().removeClass('option-hide').attr('tabindex',1);
@@ -116,9 +118,11 @@ class Select {
         })
 
         $sel.children('li:first-child').on('click', (e) => {
-            $sel.find('li:not(:first-child)').toggleClass('option-hide');
-            //return false;
-        })
+            $(e.target).focus();
+            $sel.find('li:not(:first-child)').toggleClass('option-hide')
+        }).on('keydown', (e) => {
+            console.log('keydown');
+        });
 
 
 
@@ -127,6 +131,8 @@ class Select {
                 $sel.find('li:not(:first-child)').addClass('option-hide');
             }
         })
+
+
 
     }
 
