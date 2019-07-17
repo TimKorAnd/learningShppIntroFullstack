@@ -2,25 +2,30 @@
   box-sizing: border-box;
 }
 
-.custom-select {
-
+.custom-select:hover {
+  border-color: cadetblue;
 }
 
- .custom-select {
-   outline: none;
-   cursor:pointer;
-   position: absolute;
-   z-index: 100;
+.custom-select:focus {
+  border-color: cadetblue;
+}
 
-   list-style: none;
-   width: fit-content;
-   border: 2px solid;
-   padding: 5px;
-   border-radius: 5mm;
 
-   background-color: white;
+.custom-select {
+  outline: none;
+  cursor:pointer;
+  position: absolute;
+  z-index: 100;
 
- }
+  list-style: none;
+  width: fit-content;
+  border: 2px solid;
+  padding: 5px;
+  border-radius: 5mm;
+
+  background-color: white;
+
+}
 
 .select-option {
   outline: none;
@@ -29,14 +34,19 @@
   border-radius: 5mm;
 }
 
-.select-option:not(:first-child):hover {
+
+.select-option:not(:first-child):focus {
   color: white;
   background-color: cadetblue;
 }
 
-.select-option:first-child:hover {
+/*.select-option:first-child:hover {
   border-color: cadetblue;
 }
+
+.select-option:first-child:focus {
+  border-color: cadetblue;
+}*/
 
 .select-option:first-child {
   border-bottom: 1px solid;
