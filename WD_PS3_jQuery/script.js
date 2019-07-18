@@ -1,6 +1,8 @@
 'use strict';
 
 const API_URL = 'https://picsum.photos/60';
+const DOM_VK_UP = 38;
+const DOM_VK_DOWN = 40;
 
 const OPTIONS = [
     {name:'select'+'&nbsp'+'one'+'&nbsp'+'option', src:'?image=1081'},
@@ -9,9 +11,9 @@ const OPTIONS = [
     {name:'nameeeee3', src:'?image=1078'},
     {name:'name4', src:'?image=1077'},
     {name:'na5', src:'?image=1076'},
-    {name:'', src:'?image=1075'},
+    {name:'gg', src:'?image=1075'},
     {name:'name7', src:'?image=1074'},
-    ];
+];
 $(() => {
 
     let sel = new Select('custom-select', OPTIONS);
@@ -32,18 +34,18 @@ class Select {
         this.eventsAttach($sel);
     }
 
-/*get width for custom select depend max option length (if it >) or given by attribute*/
+    /*get width for custom select depend max option length (if it >) or given by attribute*/
     getMaxOptWidt($sel) {
         let maxWidth = +$sel.attr('minWidth');
         $sel.children('li:not(:first-child)').removeClass('option-hide');
         $sel.children().each((i, currElem) => {
-            let liWidth = $(currElem).outerWidth(true) + 100;//$(currElem).find('img').width();
+            let liWidth = $(currElem).outerWidth(true) + 100;//$(currElem).find('img').width(); //100 = IMG.outerWidth
             if (liWidth  > maxWidth) {
                 maxWidth = liWidth;
                 console.log(maxWidth);
             }
         })
-       $sel.children('li:not(:first-child)').addClass('option-hide');
+        $sel.children('li:not(:first-child)').addClass('option-hide');
         return maxWidth ;
     }
 
@@ -57,12 +59,14 @@ class Select {
             $optionElem.addClass('option-hide');
             const $optImgElem = $('<img>').attr('src',`${API_URL}/${optElem.src}`);
             const $optNameElem = $('<span>').html(optElem.name);
+
             $optionElem.append($optImgElem)
                 .append($optNameElem)
                 .attr('tabindex',0);
+
             $customSelectElement.append($optionElem);
         })
-        $customSelectElement.children('li').first().removeClass('option-hide');
+        $customSelectElement.children('li').first().removeClass('option-hide').attr('tabindex',1);
 
     }
 
@@ -82,27 +86,47 @@ class Select {
             //$sel.blur();
         });
 
-        $sel.on('focus',() =>{console.log('in focus')})
-            .on('blur',() =>{console.log('in blur')});
+        $sel.on('focus',(e) =>{
+            console.log(`${e.target} in focus`);})
+            .on('blur',() =>{
+                console.log('in blur')})
+            .on('mouseenter',(e) =>{
+                $(e.target).focus();
+            })
+            .on('mouseleave',(e) =>{
+                $(e.target).blur();
+            })
+            .on('keydown', (e) => {
+                this.changeOptionsByKeys($sel,e.keyCode);
+                console.log(e.keyCode + ' keydown');
+
+
+            });
 
 
         $sel.children('li:not(:first-child)').on('click', (e) => {
             $sel.children('li').first().children('img').attr('src',
-            $(e.target).closest('li').children('img').attr('src'));
+                $(e.target).closest('li').children('img').attr('src'));
+
 
             $sel.children('li').first().children('span').html(
                 $(e.target).closest('li').children('span').html());
 
             $sel.children('li:not(:first-child)').addClass('option-hide');
+            $sel.children('li').attr('tabindex',0);
+            $(e.target).closest('li').attr('tabindex',1);
+
 
         })
 
         $sel.children('li:first-child').on('click', (e) => {
-            $(e.target).focus();
             $sel.find('li:not(:first-child)').toggleClass('option-hide')
+            $sel.children("li[tabindex='1']").focus();
         }).on('keydown', (e) => {
             console.log('keydown');
         });
+
+
 
         $(document).on('click.custom-select',(e) => {
             if ($(e.target).closest('.custom-select').length === 0) {
@@ -110,6 +134,37 @@ class Select {
             }
         })
 
+
+
+    }
+
+    changeOptionsByKeys($sel, keyCode) {
+
+
+        const $titleOption =  $sel.children('li').first();
+        let $currOption = $sel.children("li[tabindex='1']");
+
+        function upOption() {
+            $currOption = $currOption.is(':first-child') |
+            $currOption.is(':nth-child(2)') ? $sel.children('li:last') :
+                $currOption.prev('li');
+            $currOption.click();
+        }
+
+        function downOption() {
+
+        }
+
+        switch (keyCode) {
+            case  DOM_VK_UP: {
+                upOption();
+                break;
+            }
+            case DOM_VK_DOWN: {
+                downOption();
+                break;
+            }
+        };
 
 
     }

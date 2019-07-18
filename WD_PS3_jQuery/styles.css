@@ -33,6 +33,11 @@
   background-color: cadetblue;
 }
 
+.select-option:not(:first-child):focus {
+  color: white;
+  background-color: cadetblue;
+}
+
 .select-option:first-child:hover {
   border-color: cadetblue;
 }
