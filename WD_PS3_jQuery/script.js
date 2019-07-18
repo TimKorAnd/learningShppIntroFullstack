@@ -3,6 +3,8 @@
 const API_URL = 'https://picsum.photos/60';
 const DOM_VK_UP = 38;
 const DOM_VK_DOWN = 40;
+const DOM_VK_ENTER = 13;
+const BOTTOM_MARGIN = 30;
 
 const OPTIONS = [
     {name:'select'+'&nbsp'+'one'+'&nbsp'+'option', src:'?image=1081'},
@@ -17,10 +19,8 @@ const OPTIONS = [
 $(() => {
 
     let sel = new Select('custom-select', OPTIONS);
-    //sel.showSelect();
 
 });
-
 
 class Select {
 
@@ -29,7 +29,7 @@ class Select {
         const $sel = $('.' + selectClassName);
         $sel.width(this.getMaxOptWidt($sel));
         /*set height for wrapper*/
-        $(`#${selectClassName}`).height($sel.outerHeight(true) *1.3);
+        $(`#${selectClassName}`).height($sel.outerHeight(true) + BOTTOM_MARGIN);
         $sel.attr('tabindex',0);
         this.eventsAttach($sel);
     }
@@ -42,7 +42,6 @@ class Select {
             let liWidth = $(currElem).outerWidth(true) + 100;//$(currElem).find('img').width(); //100 = IMG.outerWidth
             if (liWidth  > maxWidth) {
                 maxWidth = liWidth;
-                console.log(maxWidth);
             }
         })
         $sel.children('li:not(:first-child)').addClass('option-hide');
@@ -50,7 +49,7 @@ class Select {
     }
 
     creatCustomSelectElem(customSelectClassName, optionsList) {
-        const $customSelectElement = $('<ul></ul>').addClass(customSelectClassName);
+        const $customSelectElement = $('<ul></ul>').addClass(customSelectClassName).attr('tabindex',1);
         const $customSelectWrapper = $(`#${customSelectClassName}`);
         $customSelectElement.attr('minWidth', $customSelectWrapper.attr('minWidth'));
         $customSelectWrapper.prepend($customSelectElement);
@@ -70,103 +69,88 @@ class Select {
 
     }
 
-    eventsAttach($sel) {
+    mouseEnterHandler(e) {
+        $(e.target).closest('ul').children('li').attr('tabindex', 0).blur();
+        $(e.target).closest('li').focus().attr('tabindex', 1);
+    }
 
-        $sel.children('li:not(:first-child)').on('mouseenter', (e) => {
-            $(e.target).closest('li').focus();
-        }).on('mouseleave', (e) => {
-            $(e.target).closest('li').blur();
-        });
+    eventsAttach($sel) {
+        $sel.children('li:not(:first-child)').on('mousemove', this.mouseEnterHandler);
+
+        $sel.children('li:not(:first-child)').on('mouseenter', this.mouseEnterHandler)
+            .on('mouseleave', (e) => {
+                /*if (!$(e.target).closest('li').hasClass('option-hide'))
+                $(e.target).closest('li').blur().attr('tabindex', 0);*/
+                $(e.target).closest('li').blur();
+            });
 
         $sel.children('li:first-child').on('mouseenter', (e) => {
             $sel.css('border-color', 'cadetblue');
-            //$sel.focus();
+            $sel.focus();
         }).on('mouseleave', (e) => {
             $sel.css('border-color', 'black');
-            //$sel.blur();
+            $sel.blur();
         });
 
-        $sel.on('focus',(e) =>{
-            console.log(`${e.target} in focus`);})
-            .on('blur',() =>{
-                console.log('in blur')})
-            .on('mouseenter',(e) =>{
-                $(e.target).focus();
-            })
-            .on('mouseleave',(e) =>{
-                $(e.target).blur();
-            })
-            .on('keydown', (e) => {
-                this.changeOptionsByKeys($sel,e.keyCode);
-                console.log(e.keyCode + ' keydown');
-
-
-            });
-
+        $sel.on('keydown', (e) => {
+            this.changeOptionsByKeys($sel, e.keyCode);
+        });
 
         $sel.children('li:not(:first-child)').on('click', (e) => {
-            $sel.children('li').first().children('img').attr('src',
-                $(e.target).closest('li').children('img').attr('src'));
-
-
-            $sel.children('li').first().children('span').html(
-                $(e.target).closest('li').children('span').html());
-
+            this.setTitleOptionBySelected($sel, $(e.target));
             $sel.children('li:not(:first-child)').addClass('option-hide');
-            $sel.children('li').attr('tabindex',0);
-            $(e.target).closest('li').attr('tabindex',1);
-
-
         })
 
         $sel.children('li:first-child').on('click', (e) => {
             $sel.find('li:not(:first-child)').toggleClass('option-hide')
             $sel.children("li[tabindex='1']").focus();
-        }).on('keydown', (e) => {
-            console.log('keydown');
         });
-
-
 
         $(document).on('click.custom-select',(e) => {
             if ($(e.target).closest('.custom-select').length === 0) {
                 $sel.find('li:not(:first-child)').addClass('option-hide');
             }
         })
+    }
 
-
-
+    setTitleOptionBySelected($sel, $selectedOption) {
+        $sel.children('li').first().children('img').attr('src',
+            $selectedOption.closest('li').children('img').attr('src'));
+        $sel.children('li').first().children('span').html(
+            $selectedOption.closest('li').children('span').html());
+        $sel.children('li').attr('tabindex',0);
+        $selectedOption.closest('li').attr('tabindex',1).focus();
     }
 
     changeOptionsByKeys($sel, keyCode) {
-
-
-        const $titleOption =  $sel.children('li').first();
-        let $currOption = $sel.children("li[tabindex='1']");
-
-        function upOption() {
-            $currOption = $currOption.is(':first-child') |
-            $currOption.is(':nth-child(2)') ? $sel.children('li:last') :
-                $currOption.prev('li');
-            $currOption.click();
-        }
-
-        function downOption() {
-
-        }
+        $sel.children('li:not(:first-child)').off('mouseenter', this.mouseEnterHandler).blur();
+        let $currOption = $sel.children("li[tabindex='1']").blur();
 
         switch (keyCode) {
             case  DOM_VK_UP: {
-                upOption();
+                this.setTitleOptionBySelected($sel, this.upOption($sel, $currOption));
                 break;
             }
             case DOM_VK_DOWN: {
-                downOption();
+                this.setTitleOptionBySelected($sel, this.downOption($sel, $currOption));
                 break;
             }
+            default: $currOption.click();
         };
-
 
     }
 
+    upOption($sel, $currOption) {
+
+        return $currOption.is(':first-child') | $currOption.is(':nth-child(2)') ?
+            $sel.children('li:last') :
+            $currOption.prev('li');
+    }
+
+    downOption($sel, $currOption) {
+
+        return $currOption.is(':last-child') ?
+            $sel.children('li:nth-child(2)') :
+            $currOption.next('li');
+    }
 }
