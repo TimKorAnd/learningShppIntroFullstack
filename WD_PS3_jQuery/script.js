@@ -98,11 +98,19 @@ class Select {
 
         $sel.children('li:not(:first-child)').on('click', (e) => {
             this.setTitleOptionBySelected($sel, $(e.target));
-            $sel.children('li:not(:first-child)').addClass('option-hide');
+            $sel.children('li:not(:first-child)').slideUp(200, () => {
+                $sel.children('li:not(:first-child)').addClass('option-hide')});
         })
 
         $sel.children('li:first-child').on('click', (e) => {
-            $sel.find('li:not(:first-child)').toggleClass('option-hide')
+            if (!$sel.find('li:not(:first-child)').hasClass('option-hide')) {
+                $sel.find('li:not(:first-child)').slideUp(200, () => {
+                    $sel.children('li:not(:first-child)').addClass('option-hide')});
+            } else {
+                $sel.find('li:not(:first-child)').slideDown(200, () => {
+                    $sel.children('li:not(:first-child)').removeClass('option-hide')});
+            }
+
             $sel.children("li[tabindex='1']").focus();
         });
 
