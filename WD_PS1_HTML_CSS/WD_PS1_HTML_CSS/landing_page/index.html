@@ -21,14 +21,14 @@
       <h1>++</h1>
     </div>
     <div class="header__menu">
-      <a href="">BOOKS</a>
-      <a href="">BIRDS</a>
-      <a href="">HATS</a>
+      <a id="btn-books" href="#iphone-block">iPHONE</a>
+      <a id="btn-articles" href="#articles-block">ARTICLES</a>
+      <a id="btn-inputs" href="#inputs-block">INPUTS</a>
     </div>
   </div>
 </header>
-<section class="main-block">
-  <div class="container">
+<section id="iphone-block" class="main-block">
+  <div  class="container">
     <div class="main-block__img">
       <img src="img/iphone2.png" alt="bird_in_cell" width="190">
     </div>
@@ -47,7 +47,7 @@
   </div>
 </section>
 
-<section  class="article-block">
+<section id="articles-block" class="article-block">
   <div class="container">
     <div class="article-block__web-dev">
       <div class="article-block__awesome-icon">
@@ -90,7 +90,7 @@
     </div>
   </div>
 </section>
-<section class="input-block">
+<section id="inputs-block" class="input-block">
   <div class="container">
     <h3 class="input-block__headline">Further are many "input" forms..</h3>
     <form class="input-block__form">
@@ -200,5 +200,8 @@
     
   </div>
 </section>
+<button id="top-scroll-btn" class="btn-invisible" title="Go to top">Go to top!</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="landingScript.js"></script>
 </body>
 </html>
