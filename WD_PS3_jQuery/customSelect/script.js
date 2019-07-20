@@ -108,7 +108,7 @@ class Select {
                     $sel.children('li:not(:first-child)').addClass('option-hide')});
             } else {
                 $sel.find('li:not(:first-child)').slideDown(200, () => {
-                    $sel.children('li:not(:first-child)').removeClass('option-hide')});
+                    $sel.children('li:not(:first-child)').removeClass('option-hide')}).removeAttr('style').attr('display', 'flex');;
             }
 
             $sel.children("li[tabindex='1']").focus();
