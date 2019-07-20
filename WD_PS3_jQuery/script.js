@@ -116,7 +116,8 @@ class Select {
 
         $(document).on('click.custom-select',(e) => {
             if ($(e.target).closest('.custom-select').length === 0) {
-                $sel.find('li:not(:first-child)').addClass('option-hide');
+                $sel.find('li:not(:first-child)').slideUp(200, () => {
+                    $sel.children('li:not(:first-child)').addClass('option-hide')});
             }
         })
     }

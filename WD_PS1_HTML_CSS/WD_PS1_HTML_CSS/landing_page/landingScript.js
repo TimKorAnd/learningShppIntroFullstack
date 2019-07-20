@@ -3,44 +3,40 @@ const SCROLL_SPEED = 700;
 const WINDOW_HEIGHT = $(window).height();
 
 
+
 $(() => {
-    /*$.fx.off = true;*/
     const $topScrollBtn = $('#top-scroll-btn');
+    const $page = $('body,html');
+    const stopScroll = () => {
+       $page.stop('queueMenuScrolling',true,false);
+        // $page.stop('queueTopScrolling',true,false);
+    };
     $('.header__menu > a').click((e) => {
-        /*e.preventDefault();*/
+        e.stopPropagation();
+        stopScroll();
         const scrollToElem = $(e.target).attr('href');
-        const destVerticalCoordinate = $(scrollToElem).offset().top;
-        $('html').animate({scrollTop: destVerticalCoordinate}, {duration:SCROLL_SPEED, queue:'queueMenuScrolling'});
-        console.log($(':animated'));
-        /*console.log($(':animated').queue('queueMenuScrolling'));*/
+        const destVerticalCoordinate = $(scrollToElem).offset().top - WINDOW_HEIGHT / 2;
+        $page.animate({scrollTop: destVerticalCoordinate},
+            {duration: SCROLL_SPEED, queue: 'queueMenuScrolling'}).dequeue('queueMenuScrolling');
 
-        /*if (!$(':animated').length) {
-            console.log('no animated');
-            $('html').animate({scrollTop: destVerticalCoordinate}, SCROLL_SPEED, 'queueMenuScrolling');
-        }
-        else {
-            console.log('animated');
-            $('html').stop(false,false);
-        }*/
-
-        /*return false;*/
     });
 
     $topScrollBtn.click(() => {
-        $('body,html').animate({scrollTop: 0}, SCROLL_SPEED);
+
+        stopScroll();
+        $page.animate({scrollTop: 0}, {duration: SCROLL_SPEED, queue:'queueTopScrolling'})
+            .dequeue('queueTopScrolling');
     });
 
     $(window).scroll(() => {
-        if ($('body,html').scrollTop() > WINDOW_HEIGHT) {
+        if ($page.scrollTop() > WINDOW_HEIGHT / 2) {
             $topScrollBtn.removeClass('btn-invisible');
         } else {
             $topScrollBtn.addClass('btn-invisible');
         }
-        console.log($(':animated').queue());
-        if ($(':animated').queue('queueMenuScrolling') && $(':animated').queue('queueMenuScrolling').length) {
-            console.log('animated');
-            $('html').stop('queueMenuScrolling',true,false);
-        }
     });
 
+    $(':not(.header__menu__a)').on('click keydown wheel',()=>{
+            stopScroll();
+    });
 });
