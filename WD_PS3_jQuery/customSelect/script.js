@@ -5,9 +5,9 @@ const DOM_VK_UP = 38;
 const DOM_VK_DOWN = 40;
 const DOM_VK_ENTER = 13;
 const BOTTOM_MARGIN = 30;
+const SELECT_TITLE = {name:'select'+'&nbsp'+'one'+'&nbsp'+'option', src:'?image'};
 
 const OPTIONS = [
-    {name:'select'+'&nbsp'+'one'+'&nbsp'+'option', src:'?image=1081'},
     {name:'nameeeeeeeeeeeeeefgdfgdfdfgdfgsdfgdfgee1', src:'?image=1080'},
     {name:'nameeeeeeee2', src:'?image=1079'},
     {name:'nameeeee3', src:'?image=1078'},
@@ -25,6 +25,7 @@ $(() => {
 class Select {
 
     constructor(selectClassName, optionsList) {
+        optionsList.unshift(SELECT_TITLE);
         this.creatCustomSelectElem(selectClassName, optionsList);
         const $sel = $('.' + selectClassName);
         $sel.width(this.getMaxOptWidt($sel));
@@ -74,61 +75,78 @@ class Select {
         $(e.target).closest('li').focus().attr('tabindex', 1);
     }
 
-    eventsAttach($sel) {
-        $sel.children('li:not(:first-child)').on('mousemove', this.mouseEnterHandler);
+    eventsAttach($select) {
+        $select.children('li:not(:first-child)').on('mousemove', this.mouseEnterHandler);
 
-        $sel.children('li:not(:first-child)').on('mouseenter', this.mouseEnterHandler)
+        $select.children('li:not(:first-child)').on('mouseenter', this.mouseEnterHandler)
             .on('mouseleave', (e) => {
                 /*if (!$(e.target).closest('li').hasClass('option-hide'))
                 $(e.target).closest('li').blur().attr('tabindex', 0);*/
                 $(e.target).closest('li').blur();
             });
 
-        $sel.children('li:first-child').on('mouseenter', (e) => {
-            $sel.css('border-color', 'cadetblue');
-            $sel.focus();
+        $select.children('li:first-child').on('mouseenter', (e) => {
+            $select.css('border-color', 'cadetblue');
+            $select.focus();
         }).on('mouseleave', (e) => {
-            $sel.css('border-color', 'black');
-            $sel.blur();
+            $select.css('border-color', 'black');
+            $select.blur();
         });
 
-        $sel.on('keydown', (e) => {
-            this.changeOptionsByKeys($sel, e.keyCode);
+        $select.on('keydown', (e) => {
+            this.changeOptionsByKeys($select, e.keyCode);
+            /*$(e.target).focus();*/
         });
 
-        $sel.children('li:not(:first-child)').on('click', (e) => {
-            this.setTitleOptionBySelected($sel, $(e.target));
-            $sel.children('li:not(:first-child)').slideUp(200, () => {
-                $sel.children('li:not(:first-child)').addClass('option-hide')});
+        $select.children('li:first-child').on('keydown', (e) => {
+
+            this.changeOptionsByKeys($select, e.keyCode);
+            if ($select.find('li:not(:first-child)').hasClass('option-hide')/* || !$select.find('li:not(:first-child)').is(':hidden')*/ )
+            {
+                e.stopPropagation();
+                /*$(e.target).focus();*/
+            }
+        });
+
+        $select.children('li:not(:first-child)').on('click', (e) => {
+            this.setTitleOptionBySelected($select, $(e.target));
+            $select.children('li:not(:first-child)').slideUp(200, () => {
+                $select.children('li:not(:first-child)').addClass('option-hide').removeAttr('style')});
+            $(e.target).focus();
         })
 
-        $sel.children('li:first-child').on('click', (e) => {
-            if (!$sel.find('li:not(:first-child)').hasClass('option-hide')) {
-                $sel.find('li:not(:first-child)').slideUp(200, () => {
-                    $sel.children('li:not(:first-child)').addClass('option-hide')});
+        $select.children('li:first-child').on('click', (e) => {
+            if (!$select.find('li:not(:first-child)').hasClass('option-hide')/* || !$select.find('li:not(:first-child)').is(':hidden')*/ ) {
+                $select.find('li:not(:first-child)').slideUp(200, () => {
+                    $select.children('li:not(:first-child)').addClass('option-hide').removeAttr('style')});
             } else {
-                $sel.find('li:not(:first-child)').slideDown(200, () => {
-                    $sel.children('li:not(:first-child)').removeClass('option-hide')}).removeAttr('style').attr('display', 'flex');;
-            }
+                $select.find('li:not(:first-child)').removeClass('option-hide').show();
+            }/*$select.find('li:not(:first-child)').slideDown(200, () => {
+                    $select.children('li:not(:first-child)').removeClass('option-hide')}).removeAttr('style').attr('display', 'flex');
+            }*/
 
-            $sel.children("li[tabindex='1']").focus();
+            $select.children("li[tabindex='1']").removeAttr('style').focus();
+            $(e.target).focus();
+
         });
 
         $(document).on('click.custom-select',(e) => {
             if ($(e.target).closest('.custom-select').length === 0) {
-                $sel.find('li:not(:first-child)').slideUp(200, () => {
-                    $sel.children('li:not(:first-child)').addClass('option-hide')});
+                $select.find('li:not(:first-child)').slideUp(200, () => {
+                    $select.children('li:not(:first-child)').addClass('option-hide').removeAttr('style')});
             }
         })
     }
 
-    setTitleOptionBySelected($sel, $selectedOption) {
-        $sel.children('li').first().children('img').attr('src',
-            $selectedOption.closest('li').children('img').attr('src'));
-        $sel.children('li').first().children('span').html(
-            $selectedOption.closest('li').children('span').html());
+    setTitleOptionBySelected($sel, $clickElem) {
+        const $selectedOption = $clickElem.closest('li');
+        const $titleElement = $sel.children('li').first();
+        $titleElement.children('img').attr('src',
+            $selectedOption.children('img').attr('src'));
+        $titleElement.children('span').html(
+            $selectedOption.children('span').html());
         $sel.children('li').attr('tabindex',0);
-        $selectedOption.closest('li').attr('tabindex',1).focus();
+        $selectedOption.attr('tabindex',1).focus();
     }
 
     changeOptionsByKeys($sel, keyCode) {
