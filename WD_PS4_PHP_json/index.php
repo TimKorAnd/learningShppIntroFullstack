@@ -26,15 +26,36 @@
     }
 } ?>
 <?php
-//    $index = mt_rand(1,10);
+
+// Вначале счетчик равен нулю.
+$count = 0;
+// Если в Cookies что-то есть, берем счетчик оттуда.
+if (isset($_COOKIE['count'])) $count = $_COOKIE['count'];
+$count++;
+// Записываем в Cookies новое значение счетчика.
+setcookie("count", $count, 0x7FFFFFFF, "/");
+// Выводим счетчик.
+echo $count;
+?>
+
+
+<pre>
+  <?php
+  print_r($GLOBALS);
+  ?>
+  </pre>
+</body>
+</html>
+
+<!--//    $index = mt_rand(1,10);
 //    $name = "VALUE{$index}";
 //    define($name, 777);
 //    echo "Constant {$name} has value {"${constant($name)}"}";
 //
 //$a =array( 'a'=>'apple', 'b'=>'banana', 'c'=>array( 'x', 'y', 'z'));
 //print_r ($a);
-//echo "<pre>"; print_r ($a); echo "</pre>";
-
+//echo "<pre>"; print_r ($a); echo "</pre>";-->
+<!--
 $arr = [];
 for ($col = 0; $col < 10; $col ++) {
   for ($row = 0; $row < 10; $row++) {
@@ -56,4 +77,5 @@ echo '<br>';
     echo '<br>';
 
   }
-?>
+?>-->
+
