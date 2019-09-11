@@ -8,13 +8,13 @@ function generateNextDigitInRange(int $from = 0, int $to = 0) {
 
 function ascendLimits(int &$from, int &$to): void {
     if ($to < $from) [$from, $to] = [$to, $from];
-    echo "to is {$to}; from is {$from} <br>";
+    //echo "to is {$to}; from is {$from} <br>";
 }
 
 function rangeSum (int $from = 0, int $to = 0): int {
     ascendLimits($from, $to);
     $sum = 0;
-    echo "to is {$to}; from is {$from} <br>";
+    //echo "to is {$to}; from is {$from} <br>";
     foreach (generateNextDigitInRange($from, $to) as $currentDigit) {
       $sum += $currentDigit;
     }
