@@ -29,14 +29,13 @@ $to = 0;
 $result = "";
 
 define("PATTERN_237", "/[237]$/");
-/*array of different tasks functions*/
-$taskFunctions = [
-    ['task1'] => function () {
+/*tasks functions*/
+    function task1 () {
         return true;
-    },
-    ['task2'] => function ($e) {
+    };
+    function task2($e) {
         return preg_match(PATTERN_237, strval($e));
-    }];
+    };
 
 if (!empty($_REQUEST['doAdd'])) {
 //if (true) {
@@ -45,20 +44,11 @@ if (!empty($_REQUEST['doAdd'])) {
     $from = intval($_REQUEST['task1-2']['from']);
     $to = intval($_REQUEST['task1-2']['to']);
     try {
-        foreach ($_REQUEST['task1-2']['taskStatus'] as $taskStatus) {
-            var_dump($taskStatus);
-            if ($taskStatus == '1')
-                $result .= rangeSum($from, $to, $taskFunctions[$taskStatus]);
-            //echo "Task1. Sum from  {$from} to {$to} is {$result}<br>\n";
-
-
-            /*$result = rangeSum($from, $to, function ($e) {
-                return preg_match(PATTERN_237, strval($e));
-            });
-            echo "Task2. Sum from  {$from} to {$to} is {$result})<br>\n";*/
-
-
-            echo "stop </br>";
+        foreach ($_REQUEST['task1-2']['taskStatus'] as $taskStatus => $v) {
+            dumper($taskStatus);
+            echo $v;
+            if ($v != '0')
+                $result .= rangeSum($from, $to, $taskStatus)." ";
         }
     } catch (Exception $e) {
         var_dump($e);

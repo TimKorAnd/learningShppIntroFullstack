@@ -10,10 +10,10 @@
     <input type="number" id="task1-to" name="task1-2[to]"><br />
     <!--for choose algorithm of calculating between task1 or task2-->
     <label for="task1-calculate"> Calculate all digits in range</label>
-    <input type="hidden" name="task1-2[taskStatus][1]" value="0">
+    <input type="hidden" name="task1-2[taskStatus][task1]" value="0">
     <input type="checkbox" id= "task1-calculate" name="task1-2[taskStatus][task1]" value="1">
     <label for="task2-calculate"> Calculate only digits which ends of 2,3,7 in range</label>
-    <input type="hidden" name="task1-2[taskStatus][2]" value="0">
+    <input type="hidden" name="task1-2[taskStatus][task2]" value="0">
     <input type="checkbox" id= "task2-calculate" name="task1-2[taskStatus][task2]" value="1"><br />
 
     <input type="submit" name="doAdd" value="Sum">
