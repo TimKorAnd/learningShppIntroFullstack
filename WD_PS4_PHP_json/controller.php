@@ -26,7 +26,7 @@ function rangeSum (int $from = 0, int $to = 0, $cbFiltering): int {
 //echo "controller start <br>";
 $from = 0;
 $to = 0;
-$result = "";
+$result = [];
 
 define("PATTERN_237", "/[237]$/");
 /*tasks functions*/
@@ -41,18 +41,24 @@ if (!empty($_REQUEST['doAdd'])) {
 //if (true) {
     dumper($_REQUEST);
 
-    $from = intval($_REQUEST['task1-2']['from']);
-    $to = intval($_REQUEST['task1-2']['to']);
-    try {
-        foreach ($_REQUEST['task1-2']['taskStatus'] as $taskStatus => $v) {
-            dumper($taskStatus);
-            echo $v;
-            if ($v != '0')
-                $result .= rangeSum($from, $to, $taskStatus)." ";
+    $from = !empty($_REQUEST['task1-2']['from']) ? intval($_REQUEST['task1-2']['from']) : '';
+    $to = !empty($_REQUEST['task1-2']['to']) ? intval($_REQUEST['task1-2']['to']) : '';
+    if ($from && $to) {
+        try {
+            foreach ($_REQUEST['task1-2']['taskStatus'] as $taskStatus => $v) {
+                dumper($taskStatus);
+                echo $v;
+                if ($v != '0')
+                    $result[$taskStatus] = " " . rangeSum($from, $to, $taskStatus);
+            }
+        } catch (Exception $e) {
+            var_dump($e);
         }
-    } catch (Exception $e) {
-        var_dump($e);
+    } else {
+        $result["task1"] = $from ? "Enter to, please": "Enter from, please";
+        $result["task2"] = $to ? "Enter from, please": "Enter to, please";
     }
+
 }
 include "./view.php";
 ?>
