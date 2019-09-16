@@ -24,8 +24,8 @@ function rangeSum (int $from = 0, int $to = 0, $cbFiltering): int {
     return $sum;
 }
 //echo "controller start <br>";
-$from = 0;
-$to = 0;
+$from = '';
+$to = '';
 $result = [];
 
 define("PATTERN_237", "/[237]$/");
@@ -41,10 +41,13 @@ if (!empty($_REQUEST['doAdd'])) {
 //if (true) {
     dumper($_REQUEST);
 
-    $from = !empty($_REQUEST['task1-2']['from']) ? intval($_REQUEST['task1-2']['from']) : '';
-    $to = !empty($_REQUEST['task1-2']['to']) ? intval($_REQUEST['task1-2']['to']) : '';
-    if ($from && $to) {
+    /*$from = !empty($_REQUEST['task1-2']['from']) ? intval($_REQUEST['task1-2']['from']) : '';
+    $to = !empty($_REQUEST['task1-2']['to']) ? intval($_REQUEST['task1-2']['to']) : '';*/
+    if ($from  && $to) {
+
         try {
+            $from = intval($_REQUEST['task1-2']['from']);
+            $to = intval($_REQUEST['task1-2']['to']);
             foreach ($_REQUEST['task1-2']['taskStatus'] as $taskStatus => $v) {
                 dumper($taskStatus);
                 echo $v;
@@ -55,8 +58,11 @@ if (!empty($_REQUEST['doAdd'])) {
             var_dump($e);
         }
     } else {
-        $result["task1"] = $from ? "Enter to, please": "Enter from, please";
-        $result["task2"] = $to ? "Enter from, please": "Enter to, please";
+        if ($_REQUEST['task1-2']['from'])
+        $result['task1'] = ($from === '') ? "Enter to, please": "Enter from, please";
+        $result['task1'] = empty($_REQUEST['task1-2']['taskStatus']['task1']) ? "" : $result["task1"];
+        $result['task2'] = ($to === '') ? "Enter from, please": "Enter to, please";
+        $result['task2'] = empty($_REQUEST['task1-2']['taskStatus']['task2']) ? "" : $result["task2"];
     }
 
 }

@@ -14,12 +14,7 @@
     <input type="hidden" name="task1-2[taskStatus][task1]" value="0">
     <input type="checkbox" id= "task1-calculate" name="task1-2[taskStatus][task1]" value="1">
     <?php
-      if ($from && $to) {
           echo "sum all digits from {$from} to {$to} is {$result['task1']}";
-      }
-      else {
-        echo "Enter please \"from\" field";
-    }
        ?>
   </div>
   <div>
