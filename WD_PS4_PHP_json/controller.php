@@ -23,47 +23,51 @@ function rangeSum (int $from = 0, int $to = 0, $cbFiltering): int {
     }
     return $sum;
 }
-//echo "controller start <br>";
-$from = '';
-$to = '';
-$result = [];
 
-define("PATTERN_237", "/[237]$/");
-/*tasks functions*/
-    function task1 () {
-        return true;
-    };
-    function task2($e) {
-        return preg_match(PATTERN_237, strval($e));
-    };
-
-if (!empty($_REQUEST['doAdd'])) {
-//if (true) {
+/**
+ * @param string $from
+ * @param string $to
+ * @param array $result
+ */
+function makeCalculation(int $from, int $to, array $result): void
+{
     dumper($_REQUEST);
 
-    /*$from = !empty($_REQUEST['task1-2']['from']) ? intval($_REQUEST['task1-2']['from']) : '';
-    $to = !empty($_REQUEST['task1-2']['to']) ? intval($_REQUEST['task1-2']['to']) : '';*/
-    if ($from  && $to) {
-
-        try {
-            $from = intval($_REQUEST['task1-2']['from']);
-            $to = intval($_REQUEST['task1-2']['to']);
-            foreach ($_REQUEST['task1-2']['taskStatus'] as $taskStatus => $v) {
-                dumper($taskStatus);
-                echo $v;
-                if ($v != '0')
-                    $result[$taskStatus] = " " . rangeSum($from, $to, $taskStatus);
-            }
-        } catch (Exception $e) {
-            var_dump($e);
+    try {
+        $from = intval($_REQUEST['task1-2']['from']);
+        $to = intval($_REQUEST['task1-2']['to']);
+        foreach ($_REQUEST['task1-2']['taskStatus'] as $taskStatus => $v) {
+            dumper($taskStatus);
+            echo $v;
+            if ($v != '0')
+                $result[$taskStatus] = " " . rangeSum($from, $to, $taskStatus);
         }
-    } else {
-        if ($_REQUEST['task1-2']['from'])
-        $result['task1'] = ($from === '') ? "Enter to, please": "Enter from, please";
-        $result['task1'] = empty($_REQUEST['task1-2']['taskStatus']['task1']) ? "" : $result["task1"];
-        $result['task2'] = ($to === '') ? "Enter from, please": "Enter to, please";
-        $result['task2'] = empty($_REQUEST['task1-2']['taskStatus']['task2']) ? "" : $result["task2"];
+    } catch (Exception $e) {
+        var_dump($e);
     }
+}
+/*tasks functions for generators*/
+function task1 () {
+    return true;
+};
+function task2($e) {
+    return preg_match(PATTERN_237, strval($e));
+};
+//echo "controller start <br>";
+
+$result = [];
+define("PATTERN_237", "/[237]$/");
+
+
+if (!empty($_REQUEST['doAdd'])) {
+    $from = ($_REQUEST['task1-2']['from'] === '') ? 0 : intval($_REQUEST['task1-2']['from']);
+    $to = ($_REQUEST['task1-2']['to'] === '') ? 0 : intval($_REQUEST['task1-2']['to']);
+    $isTask1 = !empty($_REQUEST['task1-2']['taskStatus']['task1']);
+    $isTask2 = !empty($_REQUEST['task1-2']['taskStatus']['task2']);
+    if (!$isTask1 && !$isTask2 ) {
+        $result['task1'] = $result['task2'] = 'check some box, please ';
+    } else
+    makeCalculation($from, $to, $result);
 
 }
 include "./view.php";
