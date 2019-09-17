@@ -1,4 +1,5 @@
 <?php
+/*controller*/
 declare(strict_types = 1);
 require_once "dumper.php";
 
@@ -39,8 +40,10 @@ function makeCalculation(int $from, int $to, array $result): void
         foreach ($_REQUEST['task1-2']['taskStatus'] as $taskStatus => $v) {
             dumper($taskStatus);
             echo $v;
-            if ($v != '0')
+            if ($v != '0') {
                 $result[$taskStatus] = " " . rangeSum($from, $to, $taskStatus);
+                echo $result[$taskStatus];
+            }
         }
     } catch (Exception $e) {
         var_dump($e);
@@ -56,6 +59,7 @@ function task2($e) {
 //echo "controller start <br>";
 
 $result = [];
+//$result['task1'] = $result['task2'] = 'check some box, enter values, and press Sum, please ';
 define("PATTERN_237", "/[237]$/");
 
 
@@ -69,6 +73,8 @@ if (!empty($_REQUEST['doAdd'])) {
     } else
     makeCalculation($from, $to, $result);
 
+} else {
+    $result['task1'] = $result['task2'] = 'check some box, enter values, and press Sum, please ';
 }
 include "./view.php";
 ?>

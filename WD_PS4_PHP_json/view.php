@@ -2,7 +2,7 @@
 <html><head><title> WD_PS4 Warmup </title></head>
 <body>
 <h1>Task1 & Task2.</h1>
-<form action="./controller.php" method="post">
+<form action="index.php" method="post">
 
     <label for="task1-from">Enter from:</label>
     <input type="number" id="task1-from" name="task1-2[from]">
