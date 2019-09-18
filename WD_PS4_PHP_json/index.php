@@ -33,7 +33,7 @@ function rangeSum (int $from = 0, int $to = 0, $cbFiltering): int {
 function makeCalculation(int $from, int $to, array $result): void
 {
     dumper($_REQUEST);
-
+    global $result;
     try {
         $from = intval($_REQUEST['task1-2']['from']);
         $to = intval($_REQUEST['task1-2']['to']);
