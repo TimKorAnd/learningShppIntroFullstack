@@ -30,19 +30,21 @@ function rangeSum (int $from = 0, int $to = 0, $cbFiltering): int {
  * @param string $to
  * @param array $result
  */
-function makeCalculation(int $from, int $to, array $result): void
+function makeCalculation(int $from, int $to, array &$result): void
 {
-    dumper($_REQUEST);
-    global $result;
+    //dumper($_REQUEST);
+    //global $result;
     try {
         $from = intval($_REQUEST['task1-2']['from']);
         $to = intval($_REQUEST['task1-2']['to']);
         foreach ($_REQUEST['task1-2']['taskStatus'] as $taskStatus => $v) {
-            dumper($taskStatus);
-            echo $v;
-            if ($v != '0') {
+            /*dumper($taskStatus);
+            echo $v;*/
+            if ($v === '0') {
+                $result[$taskStatus] = " not calculate - unchecked";
+            } else {
                 $result[$taskStatus] = " " . rangeSum($from, $to, $taskStatus);
-                echo $result[$taskStatus];
+                //echo $result[$taskStatus];
             }
         }
     } catch (Exception $e) {
