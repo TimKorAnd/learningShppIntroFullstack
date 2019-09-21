@@ -25,9 +25,29 @@ class Router
     $uri = $this->getURI();
     //echo $uri;
     foreach ($this->routes as $uriPattern => $route) {
-      if (preg_match("~$uriPattern~", $uri))
-      echo "<br> $uriPattern -> $route";
+      if (preg_match("~$uriPattern~", $uri)) {
+          $segments = explode('/',$route);
+          /*echo "<br> $uriPattern -> $route";
+          echo '<pre>';
+          print_r($segments);
+          echo '</pre>';*/
+          $controllerName = ucfirst(array_shift($segments).'Controller');
+          $actionName = 'action'.ucfirst(array_shift($segments));
+          /*print_r($controllerName);
+          print_r($actionName);*/
+          $controllerFile = ROOT.'/controllers'.$controllerName.'php';
+          if (file_exists($controllerFile)){
+              include_once($controllerFile);
+          }
+          $controllerObject = new $controllerName;
+          $result = $controllerObject->$actionName();
+          if ($result != null){
+              break;
+          }
+
+      }
     }
+      include ROOT."/view.php";
   }
 
   /**
