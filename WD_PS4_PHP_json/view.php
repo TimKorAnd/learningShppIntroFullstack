@@ -2,7 +2,9 @@
 <html><head><title> WD_PS4 Warmup </title></head>
 <body>
 <!--<h1>Task1 & Task2.</h1>-->
-<form id="task1-2-calculate" action="/controllers/Task12" method="post">
+
+<form id="task1-2-calculate" action="index.php" method="post">
+
 <fieldset>
   <legend>Task1 & Task2</legend>
     <label for="task1-from">Enter from:</label>
@@ -38,4 +40,7 @@
     <input type="button" id="task3__sbmt-btn" name="task3__sbmt-btn" value="Upload">
 
   </fieldset>
+
+<!--<h1>Task3. File upload</h1>-->
+
 </body></html>
