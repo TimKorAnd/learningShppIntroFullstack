@@ -10,7 +10,7 @@ class Task12Controller
 
 
     private static $PATTERN_237 = "/[237]$/";
-    private $result = [];
+    public $results = [];
     private $from, $to;
 
     /**
@@ -26,26 +26,26 @@ class Task12Controller
 
 
 
-    function generateNextDigitInRangeByFilter(int $from = 0, int $to = 0, $cbFiltering)
+    private function generateNextDigitInRangeByFilter(int $from = 0, int $to = 0, $cbFiltering)
     {
         for ($i = $from; $i <= $to; $i++) {
-            if ($cbFiltering($i))
+            if (Task12Controller::$cbFiltering($i))
                 yield $i;
         }
     }
 
-    function sortAscendingLimits(int &$from, int &$to): void
+    private function sortAscendingLimits(int &$from, int &$to): void
     {
         if ($to < $from) [$from, $to] = [$to, $from];
         //echo "to is {$to}; from is {$from} <br>";
     }
 
-    function rangeSum(int $from = 0, int $to = 0, $cbFiltering): int
+    private function rangeSum(int $from = 0, int $to = 0, $cbFiltering): int
     {
-        sortAscendingLimits($from, $to);
+        $this->sortAscendingLimits($from, $to);
         $sum = 0;
         //echo "to is {$to}; from is {$from} <br>";
-        foreach (generateNextDigitInRangeByFilter($from, $to, $cbFiltering) as $currentDigit) {
+        foreach ($this->generateNextDigitInRangeByFilter($from, $to, $cbFiltering) as $currentDigit) {
             $sum += $currentDigit;
         }
         return $sum;
@@ -56,7 +56,7 @@ class Task12Controller
      * @param string $to
      * @param array $results
      */
-    function makeCalculation(int $from, int $to, array &$results): void
+    private function makeCalculation(int $from, int $to, array &$results): void
     {
         //dumper($_REQUEST);
         //global $results;
@@ -69,7 +69,7 @@ class Task12Controller
                 if ($v === '0') {
                     $results[$taskStatus] = " not calculate - unchecked";
                 } else {
-                    $results[$taskStatus] = "from {$from} to {$to} is " . rangeSum($from, $to, $taskStatus);
+                    $results[$taskStatus] = "from {$from} to {$to} is " . $this->rangeSum($from, $to, $taskStatus);
                     //echo $results[$taskStatus];
                 }
             }
@@ -79,14 +79,14 @@ class Task12Controller
     }
 
     /*tasks functions for generators*/
-    function task1()
+    private function task1()
     {
         return true;
     }
 
-    function task2($e)
+    private function task2($e)
     {
-        return preg_match(PATTERN_237, strval($e));
+        return preg_match(Task12Controller::$PATTERN_237, strval($e));
     }
 
  public function actionTask12(){
@@ -96,10 +96,12 @@ class Task12Controller
     if (empty($_REQUEST['task1-2']['taskStatus']['task1'])  &&
     empty($_REQUEST['task1-2']['taskStatus']['task2']))
     {
-    $results['task1'] = $results['task2'] = 'check some box, please ';
+        $this->results['task1'] = $this->results['task2'] = 'check some box, please ';
     }
-    else
-    makeCalculation($this->from, $this->to, $this->results);
-    return true;
+    else {
+        $this->makeCalculation($this->from, $this->to, $this->results);
+    }
+    return $this->results;
+
  }
 }

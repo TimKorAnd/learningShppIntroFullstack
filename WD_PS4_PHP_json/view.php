@@ -16,16 +16,17 @@
     <label for="task1-calculate"> Calculate all digits in range</label>
     <input type="hidden" name="task1-2[taskStatus][task1]" value="0">
     <input type="checkbox" id= "task1-calculate" name="task1-2[taskStatus][task1]" value="1">
-    <?php
-          //echo "sum all digits from {$from} to {$to} is {$result['task1']}";
-          echo $results['task1'];
-       ?>
+    <?php if (!empty($task12Obj)) {
+        echo $task12Obj->results['task1'];
+    } ?>
   </div>
   <div>
     <label for="task2-calculate"> Calculate only digits which ends of 2,3,7 in range</label>
     <input type="hidden" name="task1-2[taskStatus][task2]" value="0">
     <input type="checkbox" id= "task2-calculate" name="task1-2[taskStatus][task2]" value="1">
-      <?php echo $results['task2'] ?>
+      <?php if (!empty($task12Obj)) {
+          echo $task12Obj->results['task2'];
+      } ?>
   </div>
 
     <input id="task12__sbmt-btn" type="submit" name="doAdd" value="Sum">

@@ -9,7 +9,10 @@ $results = [];
 $results['task1'] = $results['task2'] = 'check some box, enter values, and press Sum, please ';
 
 if (!empty($_REQUEST['doAdd'])) {
-    require_once('private/task12.php');
+    //require_once('private/task12.php');
+    include_once ('controllers/Task12Controller.php');
+    $task12Obj = new Task12Controller();
+    $task12Obj->actionTask12();
 }
 
 include "./view.php";
