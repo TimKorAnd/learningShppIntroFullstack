@@ -38,7 +38,7 @@
   <fieldset>
     <legend>Task3. Files upload</legend>
     <input type="file" id="task3__fileToUpload" name="task3__fileToUpload">
-    <input type="button" id="task3__sbmt-btn" name="task3__sbmt-btn" value="Upload">
+    <input type="submit" id="task3__sbmt-btn" name="task3__sbmt-btn" value="Upload">
 
   </fieldset>
 

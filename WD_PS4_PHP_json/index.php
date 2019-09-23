@@ -13,6 +13,8 @@ if (!empty($_REQUEST['doAdd'])) {
     include_once ('controllers/Task12Controller.php');
     $task12Obj = new Task12Controller();
     $task12Obj->actionTask12();
+} elseif (!empty($_REQUEST['task3__sbmt-btn'])) {
+  include_once ('private/upload.php');
 }
 
 include "./view.php";
