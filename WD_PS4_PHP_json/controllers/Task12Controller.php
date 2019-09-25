@@ -10,7 +10,7 @@ class Task12Controller
 
 
     private static $PATTERN_237 = "/[237]$/";
-    public $results = [];
+    private $results = [];
     private $from, $to;
 
     /**

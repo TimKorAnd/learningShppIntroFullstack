@@ -17,7 +17,7 @@
     <input type="hidden" name="task1-2[taskStatus][task1]" value="0">
     <input type="checkbox" id= "task1-calculate" name="task1-2[taskStatus][task1]" value="1">
     <?php if (!empty($task12Obj)) {
-        echo $task12Obj->results['task1'];
+        echo $calcResults['task1'];
     } ?>
   </div>
   <div>
@@ -25,7 +25,7 @@
     <input type="hidden" name="task1-2[taskStatus][task2]" value="0">
     <input type="checkbox" id= "task2-calculate" name="task1-2[taskStatus][task2]" value="1">
       <?php if (!empty($task12Obj)) {
-          echo $task12Obj->results['task2'];
+          echo $calcResults['task2'];
       } ?>
   </div>
 
