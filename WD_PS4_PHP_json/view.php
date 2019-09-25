@@ -39,7 +39,14 @@
     <legend>Task3. Files upload</legend>
     <input type="file" id="task3__fileToUpload" name="task3__fileToUpload">
     <input type="submit" id="task3__sbmt-btn" name="task3__sbmt-btn" value="Upload">
-
+    <pre>
+      <div>
+        <?php
+          foreach ($fileHandler->getResults() as $currentFileName){
+            echo "$currentFileName<br>";
+        } ?>
+      </div>
+    </pre>
   </fieldset>
 
 <!--<h1>Task3. File upload</h1>-->

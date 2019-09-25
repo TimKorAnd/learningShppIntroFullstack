@@ -9,13 +9,13 @@ class Task12Controller
 
 
 
-    private static $PATTERN_237 = "/[237]$/";
+    private const PATTERN_237 = "/[237]$/";
     private $results = [];
     private $from, $to;
 
     /**
      * Task12Controller constructor.
-     * @param string $PATTERN_237
+     * @param
      */
     public function __construct()
     {
@@ -86,10 +86,10 @@ class Task12Controller
 
     private function task2($e)
     {
-        return preg_match(Task12Controller::$PATTERN_237, strval($e));
+        return preg_match(self::PATTERN_237, strval($e));
     }
 
- public function actionTask12(){
+ public function getResultsTask12(){
 
     /*$isTask1 = !empty($_REQUEST['task1-2']['taskStatus']['task1']);
     $isTask2 = !empty($_REQUEST['task1-2']['taskStatus']['task2']);*/
