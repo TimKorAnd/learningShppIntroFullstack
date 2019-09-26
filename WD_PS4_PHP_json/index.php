@@ -2,6 +2,7 @@
 declare(strict_types=1);
 /*phpinfo();*/
 require_once "dumper.php";
+require_once ('./controllers/FileUploader.php');
 
 /*dumper($_SERVER);*/
 $calcResults = [];
@@ -18,8 +19,10 @@ if (!empty($_REQUEST['doAdd'])) {
     $task12Obj = new Task12Controller();
     $calcResults = $task12Obj->getResultsTask12();
 } elseif (!empty($_REQUEST['task3__sbmt-btn'])) {
-    include_once ('private/upload.php');
+    //include_once ('private/upload.php');
     //require_once ('./controllers/FileHandler.php');
+    $fileUploader = new FileUploader();
+    $fileUploader->fileUpload();
     $fileHandler = new FileHandler();
 }
 

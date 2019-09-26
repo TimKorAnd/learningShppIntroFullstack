@@ -8,6 +8,7 @@
   height: 42px;
 }
 
-.FileHandler__table th {
+.FileHandler__table th,
+.FileHandler__table td:nth-child(3){
   text-align: center;
 }

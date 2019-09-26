@@ -1,8 +1,7 @@
 <?php
 
 
-class FileHandler
-{
+class FileHandler {
     /**
      * FileHandler constructor.
      */
@@ -21,7 +20,7 @@ class FileHandler
     {
         $sizeKb = filesize($fileName);
         $i = 0;
-        $sizeUnits = [' byte',' Kb',' Mb',' Gb'];
+        $sizeUnits = [' byte',' KiB',' MiB',' GiB', ' TiB', ' PiB', ' EiB', ' ZiB', ' YiB'];
 
         while ($sizeKb / self::$kiloUnits >= 1){
             $i++;
@@ -32,11 +31,11 @@ class FileHandler
 
     public function displayFileList(){
         echo "<table id='".__CLASS__."__table' class='".__CLASS__."__table' style='width=100%; border: 1px solid black'>";
-        echo "<tr><th>File name</th><th>file size</th><th>img file preview</th></tr>";
+        echo "<tr><th>File name (".dirname(__FILE__,2)."/uploads/..)</th><th>file size</th><th>img file preview</th></tr>";
         foreach ($this->results as $currentFileName){
             echo "<tr><td><a href=".$currentFileName." download>"
                 .trim(pathinfo($currentFileName, PATHINFO_FILENAME))."</a></td>";
-            echo "<td>".$this->getFileSize($currentFileName)."</td>";
+            echo "<td>[".$this->getFileSize($currentFileName)."]</td>";
             if (getimagesize($currentFileName)) {
                 echo "<td><img src='$currentFileName' height='42' ></td>";
             }
