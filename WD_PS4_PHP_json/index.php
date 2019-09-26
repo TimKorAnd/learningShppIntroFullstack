@@ -6,7 +6,8 @@ require_once "dumper.php";
 /*dumper($_SERVER);*/
 $calcResults = [];
 
-
+require_once ('./controllers/FileHandler.php');
+$fileHandler = new FileHandler();
 
 /*variables initialize*/
 //$results['task1'] = $results['task2'] = 'check some box, enter values, and press Sum, please ';
@@ -18,7 +19,7 @@ if (!empty($_REQUEST['doAdd'])) {
     $calcResults = $task12Obj->getResultsTask12();
 } elseif (!empty($_REQUEST['task3__sbmt-btn'])) {
     include_once ('private/upload.php');
-    require_once ('./controllers/FileHandler.php');
+    //require_once ('./controllers/FileHandler.php');
     $fileHandler = new FileHandler();
 }
 

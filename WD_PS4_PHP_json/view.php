@@ -1,5 +1,9 @@
 <!-- MVC. Warmup view -->
-<html><head><title> WD_PS4 Warmup </title></head>
+<html>
+<head>
+  <link rel="stylesheet" href="styles/styles.css">
+  <title> WD_PS4 Warmup </title>
+</head>
 <body>
 <!--<h1>Task1 & Task2.</h1>-->
 
@@ -39,16 +43,17 @@
     <legend>Task3. Files upload</legend>
     <input type="file" id="task3__fileToUpload" name="task3__fileToUpload">
     <input type="submit" id="task3__sbmt-btn" name="task3__sbmt-btn" value="Upload">
-    <pre>
-      <div>
+
+      <div style="width=100%">
         <?php
-          foreach ($fileHandler->getResults() as $currentFileName){
-            echo "$currentFileName<br>";
-        } ?>
+          if (isset($fileHandler))
+              $fileHandler->displayFileList();
+         ?>
       </div>
-    </pre>
+
   </fieldset>
 
 <!--<h1>Task3. File upload</h1>-->
 
-</body></html>
+</body>
+</html>

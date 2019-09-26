@@ -1,0 +1,13 @@
+.FileHandler__table  {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.FileHandler__table tr td {
+  border: 1px solid black;
+  height: 42px;
+}
+
+.FileHandler__table th {
+  text-align: center;
+}
