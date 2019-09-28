@@ -31,7 +31,7 @@ class FileHandler {
 
     public function displayFileList(){
         echo "<table id='".__CLASS__."__table' class='".__CLASS__."__table' style='width=100%; border: 1px solid black'>";
-        echo "<tr><th>File name (".dirname(__FILE__,2)."/uploads/..)</th><th>file size</th><th>img file preview</th></tr>";
+        echo "<tr><th>Filenames stored in (".dirname(__FILE__,2)."/uploads/..)</th><th>file size</th><th>img file preview</th></tr>";
         foreach ($this->results as $currentFileName){
             echo "<tr><td><a href=".$currentFileName." download>"
                 .trim(pathinfo($currentFileName, PATHINFO_FILENAME))."</a></td>";
