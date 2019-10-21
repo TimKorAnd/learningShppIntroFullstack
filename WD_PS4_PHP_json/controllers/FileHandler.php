@@ -2,11 +2,12 @@
 
 
 class FileHandler {
+    private static $kiloUnits = 1024;
+    private $results = [];
+
     /**
      * FileHandler constructor.
      */
-    private static $kiloUnits = 1024;
-    private $results = [];
     public function __construct()
     {
         $this->results = glob("uploads/*.*",GLOB_NOSORT);
