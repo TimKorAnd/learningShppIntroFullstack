@@ -24,6 +24,11 @@ if (!empty($_REQUEST['doAdd'])) {
     $fileUploader = new FileUploader();
     $fileUploader->fileUpload();
     $fileHandler = new FileHandler();
+} elseif (!empty($_REQUEST['task4__sbmt-btn'])) {
+
+    $fileUploader = new FileUploader();
+    $fileUploader->fileUpload();
+    $fileHandler = new FileHandler();
 }
 
 include "./view.php";

@@ -52,8 +52,23 @@
       </div>
 
   </fieldset>
-
 <!--<h1>Task3. File upload</h1>-->
+<!--<h1>Task3. File upload</h1>-->
+<form id="task4-chessboard" action="index.php" method="post">
+  <fieldset>
+    <legend>Task4. Vhess Board</legend>
+    <input type="number" id="task4__fileToUpload" name="task3__fileToUpload">
+    <input type="submit" id="task4__sbmt-btn" name="task3__sbmt-btn" value="Upload">
+
+    <div style="width=100%">
+        <?php
+        if (isset($fileHandler))
+            $fileHandler->displayFileList();
+        ?>
+    </div>
+
+  </fieldset>
+  <!--<h1>Task3. File upload</h1>-->
 
 </body>
 </html>
