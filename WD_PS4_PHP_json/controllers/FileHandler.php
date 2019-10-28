@@ -27,7 +27,7 @@ class FileHandler {
             $i++;
             $sizeKb /= self::$kiloUnits;
     }
-        return round($sizeKb, 3).$sizeUnits[$i];
+        return round($sizeKb, 1).$sizeUnits[$i];
     }
 
     public function displayFileList(){

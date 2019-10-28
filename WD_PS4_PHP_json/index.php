@@ -25,10 +25,7 @@ if (!empty($_REQUEST['doAdd'])) {
     $fileUploader->fileUpload();
     $fileHandler = new FileHandler();
 } elseif (!empty($_REQUEST['task4__sbmt-btn'])) {
-
-    $fileUploader = new FileUploader();
-    $fileUploader->fileUpload();
-    $fileHandler = new FileHandler();
+    $chessBoard = new ChessBoarder();
 }
 
 include "./view.php";

@@ -46,8 +46,9 @@
 
       <div style="width=100%">
         <?php
-          if (isset($fileHandler))
+          if (isset($fileHandler)){
               $fileHandler->displayFileList();
+          }
          ?>
       </div>
 
@@ -57,13 +58,17 @@
 <form id="task4-chessboard" action="index.php" method="post">
   <fieldset>
     <legend>Task4. Chess Board</legend>
+    <label for="task4__xcell">Enter width</label>
     <input type="number" id="task4__xcell" name="task4__xcell">
+    <label for="task4__ycell">Enter height</label>
     <input type="number" id="task4__ycell" name="task4__ycell">
     <input type="submit" id="task4__sbmt-btn" name="task4__sbmt-btn" value="Upload">
 
     <div style="width=100%">
         <?php
-
+          if (isset($chessBoard)){
+            $chessBoard->display();
+          }
         ?>
     </div>
 
