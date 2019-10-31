@@ -16,7 +16,7 @@ html {
 .FileHandler__table td:nth-child(3){
   text-align: center;
 }
-.fileViewer {
+.task4__fileViewer {
   width: 100%;
   height: 20vh;
   overflow: auto;

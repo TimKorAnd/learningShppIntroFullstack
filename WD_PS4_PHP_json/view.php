@@ -44,7 +44,7 @@
     <input type="file" id="task3__fileToUpload" name="task3__fileToUpload">
     <input type="submit" id="task3__sbmt-btn" name="task3__sbmt-btn" value="Upload">
 
-      <div class="fileViewer">
+      <div class="task4__fileViewer">
         <?php
           if (isset($fileHandler)){
               $fileHandler->displayFileList();
@@ -53,8 +53,9 @@
       </div>
 
   </fieldset>
+</form>
 <!--<h1>Task3. File upload</h1>-->
-<!--<h1>Task3. File upload</h1>-->
+<!--<h1>Task4. ChessBoard</h1>-->
 <form id="task4-chessboard" action="index.php" method="post">
   <fieldset>
     <legend>Task4. Chess Board</legend>
@@ -64,7 +65,7 @@
     <input type="number" id="task4__boardHeight" name="task4__boardHeight">
     <input type="submit" id="task4__sbmt-btn" name="task4__sbmt-btn" value="board">
 
-    <div style="width=100%">
+    <div>
         <?php
           if (isset($chessBoard)){
             $chessBoard->display();
@@ -73,7 +74,26 @@
     </div>
 
   </fieldset>
-  <!--<h1>Task3. File upload</h1>-->
+</form>
+  <!--<h1>Task4. ChessBoard</h1>-->
+<!--<h1>Task5. DigitSum</h1>-->
+<form id="task5-digitSum" action="index.php" method="post">
+    <fieldset>
+        <legend>Task5. Digits Sum</legend>
+        <label for="task4__boardWidth">Enter number</label>
+        <input type="number" id="task5__digits" name="task5__digits">
+        <input type="submit" id="task5__sbmt-btn" name="task5__sbmt-btn" value="Sum">
 
+        <div>
+          <?php
+          if (isset($digitSum)){
+            $digitSum->display();
+          }
+          ?>
+        </div>
+
+    </fieldset>
+</form>
+<!--<h1>Task5. DigitSum</h1>-->
 </body>
 </html>

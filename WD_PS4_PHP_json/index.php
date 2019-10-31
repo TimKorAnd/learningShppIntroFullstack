@@ -27,6 +27,9 @@ if (!empty($_REQUEST['doAdd'])) {
 } elseif (!empty($_REQUEST['task4__sbmt-btn'])) {
   require_once ('./controllers/ChessBoarder.php');
   $chessBoard = new ChessBoarder();
+} elseif (!empty($_REQUEST['task5__sbmt-btn'])) {
+  require_once ('./controllers/DigitSum.php');
+  $digitSum = new DigitSum();
 }
 
 include "./view.php";
