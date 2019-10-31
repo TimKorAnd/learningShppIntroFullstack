@@ -44,7 +44,7 @@
     <input type="file" id="task3__fileToUpload" name="task3__fileToUpload">
     <input type="submit" id="task3__sbmt-btn" name="task3__sbmt-btn" value="Upload">
 
-      <div style="width=100%">
+      <div class="fileViewer">
         <?php
           if (isset($fileHandler)){
               $fileHandler->displayFileList();
@@ -58,11 +58,11 @@
 <form id="task4-chessboard" action="index.php" method="post">
   <fieldset>
     <legend>Task4. Chess Board</legend>
-    <label for="task4__xcell">Enter width</label>
-    <input type="number" id="task4__xcell" name="task4__xcell">
-    <label for="task4__ycell">Enter height</label>
-    <input type="number" id="task4__ycell" name="task4__ycell">
-    <input type="submit" id="task4__sbmt-btn" name="task4__sbmt-btn" value="Upload">
+    <label for="task4__boardWidth">Enter width</label>
+    <input type="number" id="task4__boardWidth" name="task4__boardWidth">
+    <label for="task4__boardHeight">Enter height</label>
+    <input type="number" id="task4__boardHeight" name="task4__boardHeight">
+    <input type="submit" id="task4__sbmt-btn" name="task4__sbmt-btn" value="board">
 
     <div style="width=100%">
         <?php

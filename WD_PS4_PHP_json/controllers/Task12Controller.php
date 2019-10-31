@@ -26,10 +26,10 @@ class Task12Controller
 
 
 
-    private function generateNextDigitInRangeByFilter(int $from = 0, int $to = 0, $cbFiltering)
+    private static function generateNextDigitInRangeByFilter(int $from = 0, int $to = 0, $cbFiltering)
     {
         for ($i = $from; $i <= $to; $i++) {
-            if (Task12Controller::$cbFiltering($i))
+            if (self::$cbFiltering($i))
                 yield $i;
         }
     }
@@ -79,12 +79,12 @@ class Task12Controller
     }
 
     /*tasks functions for generators*/
-    private function task1()
+    private static function task1()
     {
         return true;
     }
 
-    private function task2($e)
+    private static function task2($e)
     {
         return preg_match(self::PATTERN_237, strval($e));
     }

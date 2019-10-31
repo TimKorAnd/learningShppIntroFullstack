@@ -2,7 +2,7 @@
 
 
 class FileHandler {
-    private static $kiloUnits = 1024;
+    private static $kibiUnits = 1024; //https://en.m.wikipedia.org/wiki/Kibibyte
     private $results = [];
 
     /**
@@ -23,9 +23,9 @@ class FileHandler {
         $i = 0;
         $sizeUnits = [' byte',' KiB',' MiB',' GiB', ' TiB', ' PiB', ' EiB', ' ZiB', ' YiB'];
 
-        while ($sizeKb / self::$kiloUnits >= 1){
+        while ($sizeKb / self::$kibiUnits >= 1){
             $i++;
-            $sizeKb /= self::$kiloUnits;
+            $sizeKb /= self::$kibiUnits;
     }
         return round($sizeKb, 1).$sizeUnits[$i];
     }

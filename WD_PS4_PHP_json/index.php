@@ -25,7 +25,8 @@ if (!empty($_REQUEST['doAdd'])) {
     $fileUploader->fileUpload();
     $fileHandler = new FileHandler();
 } elseif (!empty($_REQUEST['task4__sbmt-btn'])) {
-    $chessBoard = new ChessBoarder();
+  require_once ('./controllers/ChessBoarder.php');
+  $chessBoard = new ChessBoarder();
 }
 
 include "./view.php";
