@@ -30,6 +30,9 @@ if (!empty($_REQUEST['doAdd'])) {
 } elseif (!empty($_REQUEST['task5__sbmt-btn'])) {
   require_once ('./controllers/DigitSum.php');
   $digitSum = new DigitSum();
+} elseif (!empty($_REQUEST['task6__sbmt-btn'])) {
+  require_once ('./controllers/ArrayProc.php');
+  $arrayProc = new ArrayProc();
 }
 
 include "./view.php";

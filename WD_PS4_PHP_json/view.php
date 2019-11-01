@@ -80,7 +80,7 @@
 <form id="task5-digitSum" action="index.php" method="post">
     <fieldset>
         <legend>Task5. Digits Sum</legend>
-        <label for="task4__boardWidth">Enter number</label>
+        <label for="task5__digits">Enter number</label>
         <input type="number" id="task5__digits" name="task5__digits">
         <input type="submit" id="task5__sbmt-btn" name="task5__sbmt-btn" value="Sum">
 
@@ -88,6 +88,24 @@
           <?php
           if (isset($digitSum)){
             $digitSum->display();
+          }
+          ?>
+        </div>
+
+    </fieldset>
+</form>
+<!--<h1>Task5. DigitSum</h1>-->
+<!--<h1>Task6. DigitSum</h1>-->
+<form id="task6-array-proc" action="index.php" method="post">
+    <fieldset>
+        <legend>Task6. Array processing </legend>
+        <label for="task6__sbmt-btn">Array processing</label>
+        <input type="submit" id="task6__sbmt-btn" name="task6__sbmt-btn" value="generate">
+
+        <div>
+          <?php
+          if (isset($arrayProc)){
+            $arrayProc->display();
           }
           ?>
         </div>
