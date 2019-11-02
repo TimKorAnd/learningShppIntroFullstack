@@ -6,20 +6,29 @@
 </head>
 <body>
 <!--<h1>Task1 & Task2.</h1>-->
-
 <form id="task1-2-calculate" action="index.php" method="post">
-
 <fieldset>
   <legend>Task1 & Task2</legend>
     <label for="task1-from">Enter from:</label>
-    <input type="number" id="task1-from" name="task1-2[from]" value="">
+    <input type="number" id="task1-from" name="task1-2[from]" value="
+        <?php
+            echo @$_SESSION['task1-2']['from'];
+        ?>">
     <label for="task1-to"> Enter to:</label>
-    <input type="number" id="task1-to" name="task1-2[to]"><br />
+    <input type="number" id="task1-to" name="task1-2[to]" value="
+    <?php
+        echo @$_SESSION['task1-2']['to'];
+    ?>"><br />
     <!--for choose algorithm of calculating between task1 or task2-->
   <div>
     <label for="task1-calculate"> Calculate all digits in range</label>
     <input type="hidden" name="task1-2[taskStatus][task1]" value="0">
-    <input type="checkbox" id= "task1-calculate" name="task1-2[taskStatus][task1]" value="1">
+    <input type="checkbox" id="task1-calculate" name="task1-2[taskStatus][task1]" value="1"
+      <?php
+          if (isset($_SESSION['task1-2']['taskStatus']['task1'])){
+              echo 'checked';
+          }
+      ?>>
     <?php if (!empty($task12Obj)) {
         echo $calcResults['task1'];
     } ?>
@@ -27,7 +36,12 @@
   <div>
     <label for="task2-calculate"> Calculate only digits which ends of 2,3,7 in range</label>
     <input type="hidden" name="task1-2[taskStatus][task2]" value="0">
-    <input type="checkbox" id= "task2-calculate" name="task1-2[taskStatus][task2]" value="1">
+    <input type="checkbox" id= "task2-calculate" name="task1-2[taskStatus][task2]" value="1"
+      <?php
+          if (isset($_SESSION['task1-2']['taskStatus']['task2'])){
+              echo 'checked';
+          }
+      ?>>
       <?php if (!empty($task12Obj)) {
           echo $calcResults['task2'];
       } ?>
@@ -36,7 +50,7 @@
     <input id="task12__sbmt-btn" type="submit" name="doAdd" value="Sum">
 </fieldset>
 </form>
-<!--<h1>Task1 & Task2.</h1>-->
+
 <!--<h1>Task3. File upload</h1>-->
 <form id="task3-fileUpload" action="index.php" method="post" enctype="multipart/form-data">
   <fieldset>
@@ -54,15 +68,21 @@
 
   </fieldset>
 </form>
-<!--<h1>Task3. File upload</h1>-->
+
 <!--<h1>Task4. ChessBoard</h1>-->
 <form id="task4-chessboard" action="index.php" method="post">
   <fieldset>
     <legend>Task4. Chess Board</legend>
     <label for="task4__boardWidth">Enter width</label>
-    <input type="number" id="task4__boardWidth" name="task4__boardWidth">
+    <input type="number" id="task4__boardWidth" name="task4__board[width]"
+      value="<?php
+          echo @$_SESSION['task4__board']['width'];
+      ?>">
     <label for="task4__boardHeight">Enter height</label>
-    <input type="number" id="task4__boardHeight" name="task4__boardHeight">
+    <input type="number" id="task4__boardHeight" name="task4__board[height]"
+      value="<?php
+            echo @$_SESSION['task4__board']['height'];
+        ?>">
     <input type="submit" id="task4__sbmt-btn" name="task4__sbmt-btn" value="board">
 
     <div>
@@ -75,13 +95,16 @@
 
   </fieldset>
 </form>
-  <!--<h1>Task4. ChessBoard</h1>-->
+
 <!--<h1>Task5. DigitSum</h1>-->
 <form id="task5-digitSum" action="index.php" method="post">
     <fieldset>
         <legend>Task5. Digits Sum</legend>
         <label for="task5__digits">Enter number</label>
-        <input type="number" id="task5__digits" name="task5__digits">
+        <input type="number" id="task5__digits" name="task5__digits[]"
+        value="<?php
+            echo @$_SESSION['task5__digits'][0];
+        ?>">
         <input type="submit" id="task5__sbmt-btn" name="task5__sbmt-btn" value="Sum">
 
         <div>
@@ -94,8 +117,8 @@
 
     </fieldset>
 </form>
-<!--<h1>Task5. DigitSum</h1>-->
-<!--<h1>Task6. DigitSum</h1>-->
+
+<!--<h1>Task6. Array processing</h1>-->
 <form id="task6-array-proc" action="index.php" method="post">
     <fieldset>
         <legend>Task6. Array processing </legend>
@@ -112,6 +135,31 @@
 
     </fieldset>
 </form>
-<!--<h1>Task5. DigitSum</h1>-->
+
+<!--<h1>Task7. Session counter</h1>-->
+<form id="task7-sessCount" action="index.php" method="post">
+    <fieldset>
+        <legend>Task7. Session count </legend>
+        <input type="submit" id="task7__sbmt-btn" name="task7__sbmt-btn" value="destroy session">
+        <div>
+            <?php
+                if (isset($sessionCount)) {
+                    $sessionCount->display();
+                }
+            ?>
+        </div>
+        <div class="task7-sessCount">
+          <?php
+              if (!isset($_SESSION['count'])) {
+                  $_SESSION['count'] = 0;
+              }
+              echo ++$_SESSION['count'];
+          ?>
+          <p>session counter:</p>
+        </div>
+    </fieldset>
+</form>
+<!--<h1>Task8. Character count</h1>-->
+
 </body>
 </html>

@@ -1,6 +1,7 @@
 html {
   background-color: #DDDDDD ;
   color: #111111;
+    overflow: auto;
 }
 .FileHandler__table  {
   width: 100%;
@@ -41,4 +42,20 @@ html {
 }
 .col {
   display:block;
+}
+.task7-sessCount {
+    position: fixed;
+    top: 20%;
+    left: 70%;
+    opacity: 20%;
+    margin-left: -25%;
+    z-index: -9999;
+    color: #2c3e50;
+    font: 50vh bold  ;
+}
+.task7-sessCount p {
+    position: fixed;
+    top: 20%;
+    left: 30%;
+    font: 5vh italic;
 }
