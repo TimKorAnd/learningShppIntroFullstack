@@ -27,7 +27,7 @@
               echo 'checked';
           }
       ?>>
-    <?php if (isset($calcResults)) {
+    <?php if (!empty($calcResults)) {
         echo $calcResults['task1'];
     } ?>
   </div>
@@ -40,7 +40,7 @@
               echo 'checked';
           }
       ?>>
-      <?php if (isset($calcResults)) {
+      <?php if (!empty($calcResults)) {
           echo $calcResults['task2'];
       } ?>
   </div>
