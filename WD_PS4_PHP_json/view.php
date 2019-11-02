@@ -10,26 +10,24 @@
 <fieldset>
   <legend>Task1 & Task2</legend>
     <label for="task1-from">Enter from:</label>
-    <input type="number" id="task1-from" name="task1-2[from]" value="
-        <?php
+    <input type="number" id="task1-from" name="task1-2[from]" value="<?php
             echo @$_SESSION['task1-2']['from'];
         ?>">
     <label for="task1-to"> Enter to:</label>
-    <input type="number" id="task1-to" name="task1-2[to]" value="
-    <?php
-        echo @$_SESSION['task1-2']['to'];
+    <input type="number" id="task1-to" name="task1-2[to]" value="<?php
+        echo @($_SESSION['task1-2']['to']);
     ?>"><br />
-    <!--for choose algorithm of calculating between task1 or task2-->
+    <!--checkbox for choose algorithm of calculating between task1 or task2-->
   <div>
     <label for="task1-calculate"> Calculate all digits in range</label>
     <input type="hidden" name="task1-2[taskStatus][task1]" value="0">
     <input type="checkbox" id="task1-calculate" name="task1-2[taskStatus][task1]" value="1"
       <?php
-          if (isset($_SESSION['task1-2']['taskStatus']['task1'])){
+          if (!empty($_SESSION['task1-2']['taskStatus']['task1'])){
               echo 'checked';
           }
       ?>>
-    <?php if (!empty($task12Obj)) {
+    <?php if (isset($calcResults)) {
         echo $calcResults['task1'];
     } ?>
   </div>
@@ -38,11 +36,11 @@
     <input type="hidden" name="task1-2[taskStatus][task2]" value="0">
     <input type="checkbox" id= "task2-calculate" name="task1-2[taskStatus][task2]" value="1"
       <?php
-          if (isset($_SESSION['task1-2']['taskStatus']['task2'])){
+          if (!empty($_SESSION['task1-2']['taskStatus']['task2'])){
               echo 'checked';
           }
       ?>>
-      <?php if (!empty($task12Obj)) {
+      <?php if (isset($calcResults)) {
           echo $calcResults['task2'];
       } ?>
   </div>

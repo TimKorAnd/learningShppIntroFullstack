@@ -7,7 +7,7 @@
 
         2) посчитать сумму чисел от -1000 до 1000, суммируя только числа которые заканчиваются на 2,3, и 7 */
 
-
+        use ValueStorage;
         private const PATTERN_237 = "/[237]$/";
         private $results = [];
         private $from, $to;
@@ -21,6 +21,7 @@
             $this->results['task1'] = $this->results['task2'] = 'check some box, enter values, and press Sum, please ';
             $this->from = ($_POST['task1-2']['from'] === '') ? 0 : intval($_POST['task1-2']['from']);
             $this->to = ($_POST['task1-2']['to'] === '') ? 0 : intval($_POST['task1-2']['to']);
+            $this->saveValues('task1-2');
         }
 
 

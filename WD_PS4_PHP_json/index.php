@@ -17,34 +17,37 @@
     /*variables initialize*/
 //$results['task1'] = $results['task2'] = 'check some box, enter values, and press Sum, please ';
 
-    if (!empty($_POST['task7__sbmt-btn'])) {
+    if (isset($_POST['task7__sbmt-btn'])) {
         require_once('./controllers/SessionCount.php');
         $sessionCount = new SessionCount();
         $sessionCount->sessionDestroy();
         //unset($sessionCount);
     }
-    if (!empty($_POST['doAdd']) || isset($_SESSION['task1-2'])) {
+    if (isset($_POST['doAdd'])) {
         //require_once('private/task12Calculate.php');
         include_once('controllers/Task12Controller.php');
         $task12Obj = new Task12Controller();
         $calcResults = $task12Obj->getResultsTask12();
+        $_SESSION['task1-2']['calcResults'] = $calcResults; //for save static results
+    } elseif (isset($_SESSION['task1-2'])) {
+        $calcResults = $_SESSION['task1-2']['calcResults']; //restore static results
     }
-    if (!empty($_POST['task3__sbmt-btn'])) {
+    if (isset($_POST['task3__sbmt-btn'])) {
         //include_once ('private/upload.php');
         //require_once ('./controllers/FileHandler.php');
         $fileUploader = new FileUploader();
         $fileUploader->fileUpload();
         $fileHandler = new FileHandler();
     }
-    if (!empty($_POST['task4__sbmt-btn']) || isset($_SESSION['task4__board'])) {
+    if (isset($_POST['task4__sbmt-btn']) || isset($_SESSION['task4__board'])) {
         require_once('./controllers/ChessBoarder.php');
         $chessBoard = new ChessBoarder();
     }
-    if (!empty($_POST['task5__sbmt-btn']) || isset($_SESSION['task5__digits'])) {
+    if (isset($_POST['task5__sbmt-btn']) || isset($_SESSION['task5__digits'])) {
         require_once('./controllers/DigitSum.php');
         $digitSum = new DigitSum();
     }
-    if (!empty($_POST['task6__sbmt-btn'])) {
+    if (isset($_POST['task6__sbmt-btn'])) {
         require_once('./controllers/ArrayProc.php');
         $arrayProc = new ArrayProc();
     }
