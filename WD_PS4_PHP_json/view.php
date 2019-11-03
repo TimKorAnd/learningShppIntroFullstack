@@ -157,7 +157,30 @@
         </div>
     </fieldset>
 </form>
+
 <!--<h1>Task8. Character count</h1>-->
+<form id="task8-charCount" action="index.php" method="post">
+  <fieldset>
+    <legend>Task8. Char couner </legend>
+    <!--<label for="task8__chars">enter some chars</label>-->
+    <textarea id="task8__chars" name="task8__chars[]"><?php
+        echo @$_SESSION['task8__chars'][0];
+        ?></textarea>
+    <input type="submit" id="task8__sbmt-btn" name="task8__sbmt-btn" value="char calc">
+
+    <div>
+        <?php
+        if (isset($charCount)){
+            echo $charCount->getCharCount();
+            $_SESSION['task8__chars']['result'] = $charCount->getCharCount();
+        } else {
+            echo @$_SESSION['task8__chars']['result'];
+        }
+        ?>
+    </div>
+
+  </fieldset>
+</form>
 
 </body>
 </html>

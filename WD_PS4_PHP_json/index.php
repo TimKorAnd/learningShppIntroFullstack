@@ -49,6 +49,10 @@
         require_once('./controllers/ArrayProc.php');
         $arrayProc = new ArrayProc();
     }
+    if (isset($_POST['task8__sbmt-btn'])) {
+        require_once('./controllers/CharCount.php');
+        $charCount = new CharCount();
+    }
 
 
     include "./view.php";
