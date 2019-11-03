@@ -17,12 +17,12 @@
     /*variables initialize*/
 //$results['task1'] = $results['task2'] = 'check some box, enter values, and press Sum, please ';
 
-    if (isset($_POST['task7__sbmt-btn'])) {
+    if (isset($_POST['task7__sbmt-btn'])) :
         require_once('./controllers/SessionCount.php');
         $sessionCount = new SessionCount();
         $sessionCount->sessionDestroy();
         //unset($sessionCount);
-    }
+    endif;
     if (isset($_POST['doAdd'])) {
         //require_once('private/task12Calculate.php');
         include_once('controllers/Task12Controller.php');
@@ -33,19 +33,17 @@
         $calcResults = $_SESSION['task1-2']['calcResults']; //restore static results
     }
     if (isset($_POST['task3__sbmt-btn'])) {
-        //include_once ('private/upload.php');
-        //require_once ('./controllers/FileHandler.php');
         $fileUploader = new FileUploader();
         $fileUploader->fileUpload();
         $fileHandler = new FileHandler();
     }
     if (isset($_POST['task4__sbmt-btn']) || isset($_SESSION['task4__board'])) {
         require_once('./controllers/ChessBoarder.php');
-        $chessBoard = new ChessBoarder();
+        $chessBoard = new ChessBoarder();           //always fetch new results
     }
     if (isset($_POST['task5__sbmt-btn']) || isset($_SESSION['task5__digits'])) {
         require_once('./controllers/DigitSum.php');
-        $digitSum = new DigitSum();
+        $digitSum = new DigitSum();                 //always fetch new results
     }
     if (isset($_POST['task6__sbmt-btn'])) {
         require_once('./controllers/ArrayProc.php');
