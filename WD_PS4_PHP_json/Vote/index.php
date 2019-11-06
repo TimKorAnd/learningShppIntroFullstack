@@ -1,7 +1,8 @@
 
 <?php
-    $voteSetName = 'voteSet'; //name of voted
-    $candidateList = ['candidate1', 'candidate2', 'candidate3', 'four']; //TODO read from file
+    $config = require_once 'config.php';
+    $voteSetName = $config['voting']['voteSetName']; //name of voted
+    $candidateList =  $config['voting']['candidateList']; //TODO read from file
 
     if ( isset( $_POST[$voteSetName.'__sbmt-btn'] )  ) {
         $voted = @$_POST[$voteSetName];
