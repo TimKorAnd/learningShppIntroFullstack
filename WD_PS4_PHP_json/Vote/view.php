@@ -14,9 +14,11 @@
     <?php
         $count = 0;
         foreach ( $candidateList as $candidate ) {
+            echo '<div>';
             echo '<label for='.$candidate.'>'.$candidate.' </label>';
             echo '<input type="radio" id="'.$candidate.$count.'" name="'.$voteSetName.'"
              value="'.$count++.'">';
+            echo '</div>';
         }
     ?>
 
