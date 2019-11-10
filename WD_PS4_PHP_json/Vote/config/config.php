@@ -9,9 +9,5 @@ return [
     ],
     'files' => [
         'resultsFileJSON' => '../src/voteresults.json',
-        'username' => 'sender@test.ru',
-        'password' => 'Vbs3Hts42sdh',
-        'port' => '465',
-        'encryption' => 'SSL'
     ]
 ];
