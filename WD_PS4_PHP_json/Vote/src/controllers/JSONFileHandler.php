@@ -1,6 +1,9 @@
 <?php
 
 
+/**
+ * Class JSONFileHandler processing JSON file
+ */
 class JSONFileHandler
 {
     private $data = [];
@@ -21,6 +24,10 @@ class JSONFileHandler
 
     }
 
+    /** read data from json file , if file is empty return basic candidatelist from config
+     * @return array
+     * TODO need compare basic list with file/ check actuality & clear redundant from file
+     */
     public function getDataFromJSONFile()
     {
         $results = json_decode(file_get_contents($this->fileName),TRUE);
@@ -28,25 +35,19 @@ class JSONFileHandler
             $results = array_flip($this->candidateList);
             array_walk($results, function(&$v, $k){ $v = 0;} );
         }
-        print_r($results);
         return $results;
     }
 
-    /**
-     * @return mixed
+    /**Add vote to specify candidate in json file
+     * @param $candidateName
      */
-    public function getData()
-    {
-        return $this->data;
-    }
-
     public function addVote($candidateName)
     {
         $this->data[$candidateName]++;
         $this->writeDataToJSONFile();
     }
 
-    /**
+    /** write to file
      * @param array|mixed $data
      */
     private function writeDataToJSONFile(): void

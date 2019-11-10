@@ -20,7 +20,7 @@
             $viewRoute = './viewVoting.php';
         }
         if ($isAlreadyVoted) {
-            $msg = 'your vote is done earlier '; //TODO display time when may voting again
+            $msg = 'you have voted before'; //TODO display time when may voting again
             $viewRoute = './viewChartPie.php';
         }
         if (!$msg){
@@ -31,7 +31,7 @@
 
     }
         echo $msg;
-        include_once($viewRoute);
+        require_once($viewRoute);
 
 
 ?>
