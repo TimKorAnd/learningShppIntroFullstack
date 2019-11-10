@@ -3,7 +3,7 @@
 
 class JSONFileHandler
 {
-    private $results = [];
+    private $data = [];
     private $fileName;
     private $candidateList;
 
@@ -16,7 +16,7 @@ class JSONFileHandler
     {
         $this->fileName = $fileName;
         $this->candidateList = $candidateList;
-        $this->results = $this->getDataFromJSONFile();
+        $this->data = $this->getDataFromJSONFile();
 
 
     }
@@ -35,14 +35,14 @@ class JSONFileHandler
     /**
      * @return mixed
      */
-    public function getResults()
+    public function getData()
     {
-        return $this->results;
+        return $this->data;
     }
 
     public function addVote($candidateName)
     {
-        $this->results[$candidateName]++;
+        $this->data[$candidateName]++;
         $this->writeDataToJSONFile();
     }
 
@@ -51,7 +51,7 @@ class JSONFileHandler
      */
     private function writeDataToJSONFile(): void
     {
-        file_put_contents($this->fileName, json_encode($this->results));
+        file_put_contents($this->fileName, json_encode($this->data));
     }
 
 
