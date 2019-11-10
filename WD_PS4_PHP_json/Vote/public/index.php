@@ -1,18 +1,19 @@
 
 <?php
     $config = require_once '../config/config.php';
-    $voteSetName = $config['voting']['voteSetName'];      //name of voteSet
-    $candidateList =  $config['voting']['candidateList']; //TODO read from file
+    $votingName = $config['voting']['votingName'];      //name of voteSet
+    $candidateList =  $config['voting']['candidateList']; //TODO check for unique values, maybe read from file
     $isVoter = $config['voting']['cookieName'];           // cookie is true after voting
     $isAlreadyVoted = isset( $_COOKIE[$isVoter] );        // true if already voted
-    $isChoosed = isset( $_POST[$voteSetName] );           // true if smth choose maked
+    $isChoosed = isset( $_POST[$votingName] );           // true if smth choose maked
+    $choosedCandidate = @$_POST[$votingName];
     $voteLifetime = $config['voting']['voteLifetime'];
     $fileName = $config['files']['resultsFileJSON'];
 
     $msg = '';
     $viewRoute = './viewVoting.php';
 
-    if (isset( $_POST[$voteSetName.'__sbmt-btn'])) {
+    if (isset( $_POST[$votingName.'__sbmt-btn'])) {
         $viewRoute = './viewChartPie.php';
         if ( !$isChoosed) {
             $msg = 'you need choose one of candidates';
@@ -22,16 +23,15 @@
             $msg = 'your vote is done earlier '; //TODO display time when may voting again
             $viewRoute = './viewChartPie.php';
         }
+        if (!$msg){
+            require_once('../src/controllers/JSONFileHandler.php');
+            $voteHandler = new JSONFileHandler($fileName, $candidateList);
+            $voteHandler -> addVote($_POST[$votingName]);
+        }
 
     }
-        if (!$msg){
-            require_once('../src/controllers/FileHandler.php');
-            $voteResults = new FileHandler($fileName);
-            $voteResults =
-        }
         echo $msg;
         include_once($viewRoute);
-
 
 
 ?>
