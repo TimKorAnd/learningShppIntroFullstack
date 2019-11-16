@@ -2,7 +2,7 @@
 
 
 /**
- * Class JSONFileHandler processing JSON file
+ * Class FileHandler processing JSON file
  */
 class JSONFileHandler
 {
