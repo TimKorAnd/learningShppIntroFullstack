@@ -25,7 +25,7 @@
         }
         if (!$msg){
             require_once('../src/controllers/JSONFileHandler.php');
-            $voteHandler = new FileHandler($fileName, $candidateList);
+            $voteHandler = new JSONFileHandler($fileName, $candidateList);
             $voteHandler -> addVote($_POST[$votingName]);
         }
 
