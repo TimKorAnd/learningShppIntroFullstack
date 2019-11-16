@@ -11,8 +11,8 @@
     /*dumper($_SERVER);*/
     $calcResults = [];
 
-    require_once('./controllers/FileHandler.php');
-    $fileHandler = new JSONFileHandler();
+    require_once('./controllers/WarmUpFileHandler.php');
+    $fileHandler = new WarmUpFileHandler();
 
     /*variables initialize*/
 //$results['task1'] = $results['task2'] = 'check some box, enter values, and press Sum, please ';
@@ -35,7 +35,7 @@
     if (isset($_POST['task3__sbmt-btn'])) {
         $fileUploader = new FileUploader();
         $fileUploader->fileUpload();
-        $fileHandler = new JSONFileHandler();
+        $fileHandler = new WarmUpFileHandler();
     }
     if (isset($_POST['task4__sbmt-btn']) || isset($_SESSION['task4__board'])) {
         require_once('./controllers/ChessBoarder.php');
@@ -57,4 +57,4 @@
 
     include "./view.php";
 
-    //TODO constants in namespace (?!) path to uploads in FileHandler
+    //TODO constants in namespace (?!) path to uploads in WarmUpFileHandler

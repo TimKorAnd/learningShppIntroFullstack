@@ -11,7 +11,7 @@ class JSONFileHandler
     private $candidateList;
 
     /**
-     * FileHandler constructor.
+     * WarmUpFileHandler constructor.
      * @param $fileName
      * @param $candidateList
      */

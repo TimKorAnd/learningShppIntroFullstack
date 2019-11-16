@@ -1,13 +1,13 @@
 <?php
 
 
-    class FileHandler
+    class WarmUpFileHandler
     {
         private static $kibiUnits = 1024; //https://en.m.wikipedia.org/wiki/Kibibyte
         private $results = [];
 
         /**
-         * FileHandler constructor.
+         * WarmUpFileHandler constructor.
          */
         public function __construct()
         {
