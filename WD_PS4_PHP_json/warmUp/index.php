@@ -50,8 +50,8 @@
         $arrayProc = new ArrayProc();
     }
     if (isset($_POST['task8__sbmt-btn'])) {
-        require_once('./controllers/CharCount.php');
-        $charCount = new CharCount();
+        require_once('./controllers/SymbolsCounter.php');
+        $symbQuant = new SymbolsCounter();
     }
 
 

@@ -170,11 +170,18 @@
 
     <div>
         <?php
-        if (isset($charCount)){
-            echo $charCount->getCharCount();
-            $_SESSION['task8__chars']['result'] = $charCount->getCharCount();
+        if (isset($symbQuant)){
+            $res = $symbQuant->getSymbQuant();
+            echo $res[0].' ';
+            echo $res[1].' ';
+            echo $res[2].' ';
+
+
+            $_SESSION['task8__chars']['result'] = $symbQuant->getSymbQuant();
         } else {
-            echo @$_SESSION['task8__chars']['result'];
+            echo @$_SESSION['task8__chars']['result'][0];
+            echo @$_SESSION['task8__chars']['result'][1];
+            echo @$_SESSION['task8__chars']['result'][2];
         }
         ?>
     </div>
