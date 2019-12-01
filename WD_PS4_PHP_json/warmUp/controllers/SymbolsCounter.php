@@ -23,25 +23,29 @@ class SymbolsCounter
     private function calcSymbQuant(string $str)
     {
         $patterns = [
-            '/(\r?\n)/m',
-            '/(\s)/m',
-            '/(\r?\n)|(\s)|(\xEE[\x80-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF])/m'
+            '/(\r?\n)/um',
+            '/(\s)/um',
+            '/[☀-⛿😀-🙏]/um',
+            '/.+?/um'
+          //'/[☀-⛿]|[😀-😾]|[👶-👥]|[🧥-🌂]|[👶🏻-👃🏻]|[👶🏼-👃🏼]|[👶🏽-👃🏾]|[👶🏿-👃🏿]|[🐶-🌫]|[🍏-🥢]|[⚽-🎰]|[🚗-🌁]|[⌚-🔓]|[❤-🕧]|[🏳-🇿🇼]]/um'
         ];
-        preg_match_all('/(\r?\n)/us', $str, $matches, PREG_SET_ORDER);
-        //$this->symbQuant[] = count($matches);
-        $str = preg_replace('/(\r?\n)/um', '', $str, -1, $countReplace);
-        $this->symbQuant[] = $countReplace;
+        $testCounter = 0;
+        //$testVar = preg_replace("/(\\x{00a9}|\x{00ae}|[\x{2000}-\x{3300}]|\x{d83c}[\x{d000}-\x{dfff}]|\x{d83d}[\x{d000}-\x{dfff}]|\x{d83e}[\x{d000}-\x{dfff}])/u", '', $str, -1, $testCounter);
+        foreach ($patterns as $pattern) {
+            $str = preg_replace($pattern, '', $str, -1, $countReplace);
+            $this->symbQuant[] = $countReplace;
+        }
+        if ($this->symbQuant[0]|$this->symbQuant[1]|$this->symbQuant[2]|$this->symbQuant[3]) {
+            $this->symbQuant[0]++;
+        }
+        //$this->symbQuant[3] = mb_strlen($str);
+        $this->symbQuant[0].=' rows; ';
+        $this->symbQuant[1].=' spaces; ';
+        $this->symbQuant[2].=' smile(s) some of them yet; ';
+        $this->symbQuant[3].=' other symbols; ';
 
-        preg_match_all('/(\s)/m', $str, $matches, PREG_SET_ORDER);
-        //$this->symbQuant[] = count($matches);
-        $str = preg_replace('/(\s)/um', '', $str, -1, $countReplace);
-        $this->symbQuant[] = $countReplace;
-
-        preg_match_all('/(\xEE[\x80-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF])/m', $str, $matches, PREG_SET_ORDER);
-        //$this->symbQuant[] = count($matches);
-        $str = preg_replace('/(\xEE[\x80-\xBF][\x80-\xBF]|\xEF[\x81-\x83][\x80-\xBF])/um', '', $str, -1, $countReplace);
-        $this->symbQuant[] = $countReplace;
         return $this->symbQuant;
+
         //preg_match_all('/s/', '');
     }
 }

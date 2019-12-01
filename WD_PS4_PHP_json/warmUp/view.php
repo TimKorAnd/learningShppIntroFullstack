@@ -172,9 +172,10 @@
         <?php
         if (isset($symbQuant)){
             $res = $symbQuant->getSymbQuant();
-            echo $res[0].' ';
-            echo $res[1].' ';
-            echo $res[2].' ';
+            echo $res[0];
+            echo $res[1];
+            echo $res[2];
+            echo $res[3];
 
 
             $_SESSION['task8__chars']['result'] = $symbQuant->getSymbQuant();
@@ -182,6 +183,7 @@
             echo @$_SESSION['task8__chars']['result'][0];
             echo @$_SESSION['task8__chars']['result'][1];
             echo @$_SESSION['task8__chars']['result'][2];
+            echo @$_SESSION['task8__chars']['result'][3];
         }
         ?>
     </div>
